@@ -2,6 +2,55 @@
 
 return json_decode(<<<'CONTENT'
 {
+    "home": {
+        "title": "WILPATTU PARK",
+        "kicker": "WELCOME TO THE WILDERNESS",
+        "intro": "Sri Lanka's natural heritage.\nRediscovered in luxury.",
+        "image": 13,
+        "settings": {
+            "animation_enabled": true,
+            "animation_path": null,
+            "animation_alt": "Sri Lankan leopard walking toward you through the forest"
+        },
+        "items": [
+            {
+                "title": "Safari",
+                "text": "safaris",
+                "meta": "Into the wilderness",
+                "image": 1
+            },
+            {
+                "title": "Accommodation",
+                "text": "stay",
+                "meta": "Rest in nature",
+                "image": 13
+            },
+            {
+                "title": "Dining",
+                "text": "dining",
+                "meta": "A taste of Sri Lanka",
+                "image": 5
+            },
+            {
+                "title": "Excursions",
+                "text": "experiences",
+                "meta": "Beyond the park",
+                "image": 15
+            },
+            {
+                "title": "Wildlife",
+                "text": "wildlife",
+                "meta": "Extraordinary encounters",
+                "image": 8
+            },
+            {
+                "title": "Special offers",
+                "text": "offers",
+                "meta": "Your next escape",
+                "image": 6
+            }
+        ]
+    },
     "pages": {
         "stay": {
             "title": "Stay close to the wild.",
@@ -328,7 +377,20 @@ return json_decode(<<<'CONTENT'
             "kicker": "GALLERY",
             "intro": "Explore wildlife, safari trails and natural landscapes photographed for the Makara Wilpattu guide.",
             "image": 6,
-            "items": []
+            "items": [
+                {"title": "Leopard on a forest trail", "text": "A Sri Lankan leopard moving through the forest landscape.", "meta": "Wildlife", "image": 6},
+                {"title": "The road into Wilpattu", "text": "A safari trail leading deeper into Wilpattu National Park.", "meta": "Safaris", "image": 1},
+                {"title": "A quiet natural lake", "text": "One of Wilpattu's peaceful rain-fed natural lakes.", "meta": "Nature", "image": 13},
+                {"title": "Elephants at the water", "text": "Wild elephants gathering near the water's edge.", "meta": "Wildlife", "image": 5},
+                {"title": "Sloth bear in the undergrowth", "text": "A sloth bear moving through dense forest undergrowth.", "meta": "Wildlife", "image": 8},
+                {"title": "Birdlife in the treetops", "text": "Wilpattu birdlife among the forest canopy.", "meta": "Wildlife", "image": 15},
+                {"title": "Spotted deer", "text": "Spotted deer watching from the edge of the forest.", "meta": "Wildlife", "image": 9},
+                {"title": "Crocodile beside a villu", "text": "A crocodile resting beside a natural lake.", "meta": "Wildlife", "image": 2},
+                {"title": "Butterfly in the forest", "text": "A butterfly resting among the forest plants.", "meta": "Nature", "image": 12},
+                {"title": "Leopard among the branches", "text": "A leopard resting among shaded tree branches.", "meta": "Wildlife", "image": 3},
+                {"title": "Elephant encounter", "text": "A quiet elephant encounter from a safe distance.", "meta": "Wildlife", "image": 11},
+                {"title": "Wild boar on a trail", "text": "A wild boar crossing a forest trail in Wilpattu.", "meta": "Wildlife", "image": 16}
+            ]
         },
         "guest-stories": {
             "title": "Every journey has a story.",
@@ -443,6 +505,14 @@ return json_decode(<<<'CONTENT'
             "kicker": "CONTACT & RESERVATIONS",
             "intro": "Tell us a little about your plans. Our reservations team can help with stays, safaris, groups and transfers.",
             "image": 6,
+            "settings": {
+                "eyebrow": "LET'S MAKE IT HAPPEN",
+                "heading": "Tell us about\nyour journey.",
+                "supporting_text": "Have dates in mind, a safari question or a special occasion? Leave a message and your preferred contact details.",
+                "reservations_label": "MAKARA RESORTS RESERVATIONS",
+                "availability_note": "Enquiries are subject to availability. Your quotation will confirm rates, inclusions and cancellation terms.",
+                "submission_note": "Submitting this form does not confirm a reservation."
+            },
             "items": []
         }
     },

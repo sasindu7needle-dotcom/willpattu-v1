@@ -3,22 +3,66 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEnquiryRequest;
+use App\Models\PageContent;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ParkController extends Controller
 {
     public function home(): View
     {
-        return view('home', ['pages' => config('content.pages')]);
+        $page = config('content.home');
+        $customPage = PageContent::query()->with('items')->where('slug', 'home')->first();
+
+        if ($customPage) {
+            $page = [
+                'title' => $customPage->title,
+                'kicker' => $customPage->kicker,
+                'intro' => $customPage->intro,
+                'image' => $customPage->hero_image,
+                'settings' => $customPage->settings ?? $page['settings'],
+                'items' => $customPage->items->map(fn ($item): array => [
+                    'title' => $item->title,
+                    'meta' => $item->meta,
+                    'text' => $item->text,
+                    'image' => $item->image,
+                ])->all(),
+            ];
+        }
+
+        $animationSettings = array_replace(config('content.home.settings'), $page['settings'] ?? []);
+        $animationUrl = $animationSettings['animation_path']
+            ? Storage::disk('public')->url($animationSettings['animation_path'])
+            : asset('images/leopard-front-walk-atlas.png');
+
+        return view('home', compact('page', 'animationSettings', 'animationUrl'));
     }
 
     public function page(string $slug): View
     {
         $page = config('content.pages.'.$slug);
         abort_unless($page, 404);
+
+        $customPage = PageContent::query()->with('items')->where('slug', $slug)->first();
+
+        if ($customPage) {
+            $page = [
+                'title' => $customPage->title,
+                'kicker' => $customPage->kicker,
+                'intro' => $customPage->intro,
+                'image' => $customPage->hero_image,
+                'settings' => $customPage->settings ?? $page['settings'] ?? [],
+                'items' => $customPage->items->map(fn ($item): array => [
+                    'title' => $item->title,
+                    'meta' => $item->meta,
+                    'text' => $item->text,
+                    'image' => $item->image,
+                ])->all(),
+            ];
+        }
 
         return view('page', compact('page', 'slug'));
     }

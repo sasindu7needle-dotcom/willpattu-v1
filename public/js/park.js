@@ -27,7 +27,9 @@ if (wildlifeJourney) {
     const titleLetters = [...discoveryTitle.querySelectorAll('.discovery-letter')];
     let furSpots = [];
     const walkingAtlas = new Image();
-    walkingAtlas.src = new URL('../images/leopard-front-walk-atlas.png', document.querySelector('script[src*="park.js"]').src).href;
+    if (leopard) {
+        walkingAtlas.src = leopard.dataset.animationSrc;
+    }
     const clamp = (value) => Math.min(1, Math.max(0, value));
     const ease = (value) => value * value * (3 - 2 * value);
     let framePending = false;
@@ -65,10 +67,12 @@ if (wildlifeJourney) {
         const progress = renderedProgress;
         const walking = clamp(progress / 0.22);
         const stride = Math.min(11, Math.floor(walking * 12));
-        leopard.style.backgroundPosition = `${(stride % 4) * 100 / 3}% ${Math.floor(stride / 4) * 50}%`;
-        wildlifeJourney.style.setProperty('--leopard-travel', `${-ease(walking) * 16}vw`);
-        wildlifeJourney.style.setProperty('--leopard-scale', (1 + ease(walking) * 1.15).toFixed(4));
-        wildlifeJourney.style.setProperty('--leopard-bob', `${Math.sin(walking * Math.PI * 8) * 4}px`);
+        if (leopard) {
+            leopard.style.backgroundPosition = `${(stride % 4) * 100 / 3}% ${Math.floor(stride / 4) * 50}%`;
+            wildlifeJourney.style.setProperty('--leopard-travel', `${-ease(walking) * 16}vw`);
+            wildlifeJourney.style.setProperty('--leopard-scale', (1 + ease(walking) * 1.15).toFixed(4));
+            wildlifeJourney.style.setProperty('--leopard-bob', `${Math.sin(walking * Math.PI * 8) * 4}px`);
+        }
         const backgroundReveal = ease(clamp((progress - 0.64) / 0.26));
         const copyFade = 1 - ease(clamp(progress / 0.25));
         wildlifeJourney.style.setProperty('--camera-scale', '1');
@@ -80,11 +84,11 @@ if (wildlifeJourney) {
         const stageBounds = wildlifeJourney.querySelector('.wildlife-stage').getBoundingClientRect();
         const headingOffset = (window.innerHeight * 0.44 - titleLayout.center) * (1 - backgroundReveal);
         wildlifeJourney.style.setProperty('--heading-offset', `${headingOffset}px`);
-        const actorBounds = leopard.getBoundingClientRect();
-        const visibleSpots = furSpots.map((spot) => ({
+        const actorBounds = leopard?.getBoundingClientRect();
+        const visibleSpots = actorBounds ? furSpots.map((spot) => ({
             x: actorBounds.left + spot.x * actorBounds.width,
             y: actorBounds.top + spot.y * actorBounds.height,
-        })).filter((spot) => spot.x > 30 && spot.x < window.innerWidth - 30 && spot.y > 30 && spot.y < window.innerHeight - 30);
+        })).filter((spot) => spot.x > 30 && spot.x < window.innerWidth - 30 && spot.y > 30 && spot.y < window.innerHeight - 30) : [];
         titleLetters.forEach((letter, index) => {
             const emergence = clamp((progress - 0.24 - index * 0.008) / 0.24);
             const travel = ease(emergence);
@@ -121,7 +125,7 @@ if (wildlifeJourney) {
         wildlifeJourney.classList.toggle('is-animated', !motionPreference.matches);
         hero.inert = false;
         discovery.inert = false;
-        if (motionPreference.matches) {
+        if (motionPreference.matches && leopard) {
             leopard.style.backgroundPosition = '0% 0%';
         }
         renderedProgress = null;

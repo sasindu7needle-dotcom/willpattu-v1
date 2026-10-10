@@ -1,7 +1,83 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\ContactPageController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DiningContentItemController;
+use App\Http\Controllers\Admin\DiningPageController;
+use App\Http\Controllers\Admin\ExperienceContentItemController;
+use App\Http\Controllers\Admin\ExperiencePageController;
+use App\Http\Controllers\Admin\GalleryContentItemController;
+use App\Http\Controllers\Admin\GalleryPageController;
+use App\Http\Controllers\Admin\HomeContentItemController;
+use App\Http\Controllers\Admin\HomePageController;
+use App\Http\Controllers\Admin\OfferContentItemController;
+use App\Http\Controllers\Admin\OfferPageController;
+use App\Http\Controllers\Admin\SafariContentItemController;
+use App\Http\Controllers\Admin\SafariPageController;
+use App\Http\Controllers\Admin\StayContentItemController;
+use App\Http\Controllers\Admin\StayPageController;
+use App\Http\Controllers\Admin\WildlifeContentItemController;
+use App\Http\Controllers\Admin\WildlifePageController;
 use App\Http\Controllers\ParkController;
+use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Route;
+
+Route::prefix('admin')->name('admin.')->group(function (): void {
+    Route::middleware('guest')->group(function (): void {
+        Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+        Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
+    });
+
+    Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function (): void {
+        Route::get('/', DashboardController::class)->name('dashboard');
+        Route::get('/pages/home', [HomePageController::class, 'edit'])->name('pages.home.edit');
+        Route::put('/pages/home', [HomePageController::class, 'update'])->name('pages.home.update');
+        Route::put('/pages/home/animation', [HomePageController::class, 'updateAnimation'])->name('pages.home.animation.update');
+        Route::delete('/pages/home/animation', [HomePageController::class, 'resetAnimation'])->name('pages.home.animation.reset');
+        Route::post('/pages/home/items', [HomeContentItemController::class, 'store'])->name('pages.home.items.store');
+        Route::put('/pages/home/items/{pageContentItem}', [HomeContentItemController::class, 'update'])->name('pages.home.items.update');
+        Route::delete('/pages/home/items/{pageContentItem}', [HomeContentItemController::class, 'destroy'])->name('pages.home.items.destroy');
+        Route::get('/pages/stay', [StayPageController::class, 'edit'])->name('pages.stay.edit');
+        Route::put('/pages/stay', [StayPageController::class, 'update'])->name('pages.stay.update');
+        Route::post('/pages/stay/items', [StayContentItemController::class, 'store'])->name('pages.stay.items.store');
+        Route::put('/pages/stay/items/{pageContentItem}', [StayContentItemController::class, 'update'])->name('pages.stay.items.update');
+        Route::delete('/pages/stay/items/{pageContentItem}', [StayContentItemController::class, 'destroy'])->name('pages.stay.items.destroy');
+        Route::get('/pages/safaris', [SafariPageController::class, 'edit'])->name('pages.safaris.edit');
+        Route::put('/pages/safaris', [SafariPageController::class, 'update'])->name('pages.safaris.update');
+        Route::post('/pages/safaris/items', [SafariContentItemController::class, 'store'])->name('pages.safaris.items.store');
+        Route::put('/pages/safaris/items/{pageContentItem}', [SafariContentItemController::class, 'update'])->name('pages.safaris.items.update');
+        Route::delete('/pages/safaris/items/{pageContentItem}', [SafariContentItemController::class, 'destroy'])->name('pages.safaris.items.destroy');
+        Route::get('/pages/wildlife', [WildlifePageController::class, 'edit'])->name('pages.wildlife.edit');
+        Route::put('/pages/wildlife', [WildlifePageController::class, 'update'])->name('pages.wildlife.update');
+        Route::post('/pages/wildlife/items', [WildlifeContentItemController::class, 'store'])->name('pages.wildlife.items.store');
+        Route::put('/pages/wildlife/items/{pageContentItem}', [WildlifeContentItemController::class, 'update'])->name('pages.wildlife.items.update');
+        Route::delete('/pages/wildlife/items/{pageContentItem}', [WildlifeContentItemController::class, 'destroy'])->name('pages.wildlife.items.destroy');
+        Route::get('/pages/experiences', [ExperiencePageController::class, 'edit'])->name('pages.experiences.edit');
+        Route::put('/pages/experiences', [ExperiencePageController::class, 'update'])->name('pages.experiences.update');
+        Route::post('/pages/experiences/items', [ExperienceContentItemController::class, 'store'])->name('pages.experiences.items.store');
+        Route::put('/pages/experiences/items/{pageContentItem}', [ExperienceContentItemController::class, 'update'])->name('pages.experiences.items.update');
+        Route::delete('/pages/experiences/items/{pageContentItem}', [ExperienceContentItemController::class, 'destroy'])->name('pages.experiences.items.destroy');
+        Route::get('/pages/dining', [DiningPageController::class, 'edit'])->name('pages.dining.edit');
+        Route::put('/pages/dining', [DiningPageController::class, 'update'])->name('pages.dining.update');
+        Route::post('/pages/dining/items', [DiningContentItemController::class, 'store'])->name('pages.dining.items.store');
+        Route::put('/pages/dining/items/{pageContentItem}', [DiningContentItemController::class, 'update'])->name('pages.dining.items.update');
+        Route::delete('/pages/dining/items/{pageContentItem}', [DiningContentItemController::class, 'destroy'])->name('pages.dining.items.destroy');
+        Route::get('/pages/offers', [OfferPageController::class, 'edit'])->name('pages.offers.edit');
+        Route::put('/pages/offers', [OfferPageController::class, 'update'])->name('pages.offers.update');
+        Route::post('/pages/offers/items', [OfferContentItemController::class, 'store'])->name('pages.offers.items.store');
+        Route::put('/pages/offers/items/{pageContentItem}', [OfferContentItemController::class, 'update'])->name('pages.offers.items.update');
+        Route::delete('/pages/offers/items/{pageContentItem}', [OfferContentItemController::class, 'destroy'])->name('pages.offers.items.destroy');
+        Route::get('/pages/gallery', [GalleryPageController::class, 'edit'])->name('pages.gallery.edit');
+        Route::put('/pages/gallery', [GalleryPageController::class, 'update'])->name('pages.gallery.update');
+        Route::post('/pages/gallery/items', [GalleryContentItemController::class, 'store'])->name('pages.gallery.items.store');
+        Route::put('/pages/gallery/items/{pageContentItem}', [GalleryContentItemController::class, 'update'])->name('pages.gallery.items.update');
+        Route::delete('/pages/gallery/items/{pageContentItem}', [GalleryContentItemController::class, 'destroy'])->name('pages.gallery.items.destroy');
+        Route::get('/pages/contact', [ContactPageController::class, 'edit'])->name('pages.contact.edit');
+        Route::put('/pages/contact', [ContactPageController::class, 'update'])->name('pages.contact.update');
+        Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+    });
+});
 
 Route::get('/', [ParkController::class, 'home'])->name('home');
 Route::post('/contact', [ParkController::class, 'enquire'])->middleware('throttle:5,1')->name('enquire');
