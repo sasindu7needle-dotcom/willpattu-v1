@@ -35,3 +35,45 @@
 @media(max-width:550px){.leopard-actor{width:70vw;left:66%;bottom:15%}.wildlife-journey .scroll-note{display:block;bottom:8px;right:25px;font-size:8px}}
 @media(prefers-reduced-motion:reduce){.leopard-actor{transform:translateX(-50%);will-change:auto}}
 @media(max-width:550px){.wildlife-journey .hero-content h1{font-size:clamp(46px,15.5vw,70px);letter-spacing:1px}}
+
+.living-wildlife{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.hero.has-living-scene>.hero-photo{opacity:0}
+
+/* Centered reservation bar over the wildlife scene. */
+.wildlife-journey .hero-content{width:84%;max-width:none;margin-inline:auto;padding:clamp(70px,12vh,130px) 0 150px;text-align:left}
+.hero-copy{max-width:650px}
+.wildlife-journey .hero-content h1{font-size:clamp(64px,8vw,110px);line-height:.88;letter-spacing:2px;margin:23px 0 28px}
+.wildlife-journey .hero-content h1 em{font-style:normal}
+.wildlife-journey .hero-content p{font-size:24px;margin-bottom:42px}
+.hero-booking{width:100%;max-width:1180px;margin:90px auto 0;display:grid;grid-template-columns:1.4fr 1fr 1fr 1.4fr .9fr 1.15fr;gap:12px;padding:12px;background:#f1eee5b8;text-align:left}
+.hero-booking .booking-field{display:flex;align-items:center;min-width:0;background:#fff;color:#666;padding:0 12px;height:48px}
+.hero-booking input,.hero-booking select{min-width:0;width:100%;margin:0;padding:0;border:0;border-radius:0;background:#fff;color:#666;color-scheme:light;font-size:11px;text-transform:uppercase;height:100%}
+.hero-booking input::placeholder{color:#666;opacity:1}
+.booking-label{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.booking-date{gap:8px}
+.booking-date>span{font-size:10px;text-transform:uppercase;white-space:nowrap}
+.hero-booking .booking-date input{flex:1;width:24px;color:transparent}
+.hero-booking .booking-date input:valid,.hero-booking .booking-date input:focus{color:#666}
+.hero-booking .booking-date:focus-within>span,.hero-booking .booking-date:has(input:valid)>span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.booking-submit{border:0;background:#202e54;color:#fff;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;min-height:48px;padding:12px}
+.booking-submit:hover{background:#30436e}
+.resort-header{position:absolute;top:0;left:0;width:100%;height:auto;display:block;padding:0 max(4.4vw,24px);background:linear-gradient(#10191185,transparent);border:0;color:#fff}
+.header-top{height:118px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;border-bottom:1px solid #ffffff60}
+.header-resort{display:flex;align-items:center;gap:32px}
+.resort-name{font-size:13px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.resort-header .menu-toggle{display:flex;flex-direction:column;justify-content:center;gap:7px;width:38px;height:44px;padding:0}
+.menu-toggle span{display:block;width:35px;height:1px;background:currentColor;transition:transform .2s,opacity .2s}
+.menu-toggle[aria-expanded=true] span:first-child{transform:translateY(8px) rotate(45deg)}
+.menu-toggle[aria-expanded=true] span:nth-child(2){opacity:0}
+.menu-toggle[aria-expanded=true] span:last-child{transform:translateY(-8px) rotate(-45deg)}
+.header-logo{font-family:var(--serif);font-size:28px;letter-spacing:2px;white-space:nowrap}
+.resort-header .header-book{justify-self:end;justify-content:center;margin:0;background:#fff;color:#202e54;padding:10px 28px;min-width:160px;font-size:12px;letter-spacing:1px}
+.resort-header .header-book:hover{background:var(--cream)}
+.resort-header .header-navigation{display:flex;justify-content:center;gap:clamp(25px,4.5vw,70px);margin:0;padding:16px 0 20px}
+.resort-header .header-navigation a{font-size:12px;letter-spacing:.6px;white-space:nowrap}
+.resort-header~.site-menu{position:absolute;top:174px}
+@media(min-width:851px){.wildlife-journey .hero-content{padding-top:220px}.page-hero{height:570px}.page-hero .container{padding-top:195px}}
+@media(max-width:850px){.resort-header{position:relative;background:var(--deep);padding-inline:24px}.header-top{height:96px;border:0}.header-resort{gap:16px}.resort-name{display:none}.header-logo{font-size:22px;letter-spacing:1px}.resort-header .header-book{min-width:110px;padding:10px 16px;font-size:10px}.resort-header .header-navigation{display:none}.resort-header~.site-menu{top:96px}}
+@media(max-width:550px){.resort-header{padding-inline:18px}.header-top{height:82px}.header-logo{font-size:16px;letter-spacing:.5px}.resort-header .menu-toggle{width:28px}.menu-toggle span{width:26px}.resort-header .header-book{min-width:85px;padding:9px 12px;font-size:9px}.resort-header~.site-menu{top:82px}}
+.wildlife-journey .hero-note{display:none}
+@media(max-width:850px){.hero-booking{margin-top:62px;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.wildlife-journey .hero-content{padding-top:clamp(65px,13vh,110px)}.wildlife-journey .hero-content p{margin-bottom:30px}}
+@media(max-width:550px){.wildlife-journey .hero-content{width:calc(100% - 36px);padding:45px 0 120px}.wildlife-journey .hero-content h1{font-size:clamp(46px,15.5vw,70px);letter-spacing:1px}.wildlife-journey .hero-content p{font-size:20px;margin-bottom:24px}.hero-booking{margin-top:calc(clamp(96px,18svh,160px) + 40px);grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px}.hero-booking .booking-field{padding-inline:10px}.hero-booking .booking-field:first-of-type,.booking-submit{grid-column:1 / -1}.hero-booking .booking-field,.booking-submit{height:44px;min-height:44px}}

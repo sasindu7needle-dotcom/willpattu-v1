@@ -1,5 +1,26 @@
-const toggle=document.querySelector('.menu-toggle');const menu=document.querySelector('#site-menu');toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));menu.hidden=!open;toggle.textContent=open?'×':'☰';});document.addEventListener('keydown',e=>{if(e.key==='Escape'){menu.hidden=true;toggle.setAttribute('aria-expanded','false');toggle.textContent='☰';}});
+const toggle = document.querySelector('.menu-toggle');
+const menu = document.querySelector('#site-menu');
+const setMenuOpen = (isOpen) => {
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Close all pages' : 'Open all pages');
+    menu.hidden = !isOpen;
+};
+toggle.addEventListener('click', () => setMenuOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        setMenuOpen(false);
+    }
+});
 const filters=document.querySelectorAll('[data-filter]');filters.forEach(b=>b.addEventListener('click',()=>{filters.forEach(f=>f.setAttribute('aria-pressed',String(f===b)));document.querySelectorAll('[data-category]').forEach(i=>i.hidden=b.dataset.filter!=='All'&&i.dataset.category!==b.dataset.filter);}));const dialog=document.querySelector('#lightbox');document.querySelectorAll('.gallery-item').forEach(b=>b.addEventListener('click',()=>{const img=b.querySelector('img');document.querySelector('#lightbox-image').src=img.src;document.querySelector('#lightbox-image').alt=img.alt;document.querySelector('#lightbox-caption').textContent=b.dataset.caption;dialog.showModal();}));document.querySelector('.lightbox-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});const arrival=document.querySelector('[name="arrival"]');const departure=document.querySelector('[name="departure"]');if(arrival){arrival.addEventListener('change',()=>{departure.min=arrival.value;departure.required=Boolean(arrival.value);});}
+
+const heroBooking = document.querySelector('[data-hero-booking]');
+if (heroBooking) {
+    heroBooking.addEventListener('submit', () => {
+        const nationality = heroBooking.querySelector('[data-booking-nationality]').value;
+        const promoCode = heroBooking.querySelector('[data-booking-promo]').value.trim();
+        heroBooking.querySelector('[data-booking-message]').value = `I would like to enquire about a stay. Nationality: ${nationality}.${promoCode ? ` Promo code: ${promoCode}.` : ''}`;
+    });
+}
 
 const wildlifeJourney = document.querySelector('[data-wildlife-journey]');
 if (wildlifeJourney) {
@@ -8,7 +29,8 @@ if (wildlifeJourney) {
     const discovery = wildlifeJourney.querySelector('.discover');
     const discoveryCards = [...discovery.querySelectorAll('.discovery-card')];
     const exploreLink = wildlifeJourney.querySelector('.scroll-note');
-    const leopard = wildlifeJourney.querySelector('.leopard-sprite');
+    const livingMode = wildlifeJourney.dataset.livingAnimation === 'true';
+    const leopard = wildlifeJourney.querySelector(livingMode ? '.hero-photo' : '.leopard-sprite');
     const discoveryTitle = discovery.querySelector('h2');
     discoveryTitle.setAttribute('aria-label', discoveryTitle.textContent);
     for (const textContainer of [discoveryTitle, discoveryTitle.querySelector('em')]) {
@@ -27,7 +49,7 @@ if (wildlifeJourney) {
     const titleLetters = [...discoveryTitle.querySelectorAll('.discovery-letter')];
     let furSpots = [];
     const walkingAtlas = new Image();
-    if (leopard) {
+    if (leopard && !livingMode) {
         walkingAtlas.src = leopard.dataset.animationSrc;
     }
     const clamp = (value) => Math.min(1, Math.max(0, value));
@@ -67,7 +89,7 @@ if (wildlifeJourney) {
         const progress = renderedProgress;
         const walking = clamp(progress / 0.22);
         const stride = Math.min(11, Math.floor(walking * 12));
-        if (leopard) {
+        if (leopard && !livingMode) {
             leopard.style.backgroundPosition = `${(stride % 4) * 100 / 3}% ${Math.floor(stride / 4) * 50}%`;
             wildlifeJourney.style.setProperty('--leopard-travel', `${-ease(walking) * 16}vw`);
             wildlifeJourney.style.setProperty('--leopard-scale', (1 + ease(walking) * 1.15).toFixed(4));
@@ -125,7 +147,7 @@ if (wildlifeJourney) {
         wildlifeJourney.classList.toggle('is-animated', !motionPreference.matches);
         hero.inert = false;
         discovery.inert = false;
-        if (motionPreference.matches && leopard) {
+        if (motionPreference.matches && leopard && !livingMode) {
             leopard.style.backgroundPosition = '0% 0%';
         }
         renderedProgress = null;
@@ -150,25 +172,162 @@ if (wildlifeJourney) {
             window.scrollTo({ top: top + wildlifeJourney.offsetHeight - window.innerHeight, behavior: 'instant' });
         }
     });
-    walkingAtlas.addEventListener('load', () => {
-        const frameWidth = walkingAtlas.naturalWidth / 4;
-        const frameHeight = walkingAtlas.naturalHeight / 3;
-        const canvas = document.createElement('canvas');
-        canvas.width = Math.ceil(frameWidth);
-        canvas.height = Math.ceil(frameHeight);
-        const context = canvas.getContext('2d', { willReadFrequently: true });
-        context.drawImage(walkingAtlas, frameWidth * 3, frameHeight * 2, frameWidth, frameHeight, 0, 0, canvas.width, canvas.height);
-        const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
-        for (let y = 12; y < canvas.height * 0.65; y += 8) {
-            for (let x = Math.floor(canvas.width * 0.2); x < canvas.width * 0.8; x += 8) {
-                const offset = (y * canvas.width + x) * 4;
-                const nearby = (y * canvas.width + Math.min(canvas.width - 1, x + 7)) * 4;
-                if (pixels[offset + 3] > 220 && pixels[offset] < 85 && pixels[offset + 1] < 70 && pixels[offset + 2] < 60 && pixels[nearby] > 110 && pixels[nearby] > pixels[nearby + 2] * 1.2) {
-                    furSpots.push({ x: x / canvas.width, y: y / canvas.height });
+    if (livingMode) {
+        const livingScene = document.createElement('canvas');
+        livingScene.className = 'living-wildlife';
+        livingScene.setAttribute('aria-hidden', 'true');
+        leopard.after(livingScene);
+        const sceneContext = livingScene.getContext('2d');
+        const sceneBase = document.createElement('canvas');
+        const baseContext = sceneBase.getContext('2d');
+        const chestPatch = document.createElement('canvas');
+        const patchContext = chestPatch.getContext('2d');
+        let chestRegion = null;
+        let headRegion = null;
+        let sceneTransform = null;
+        const glanceFrames = ['leopard-glance-half.png', 'leopard-glance-look.png'].map((name) => {
+            const frame = new Image();
+            frame.src = new URL(`../images/${name}`, document.querySelector('script[src*="park.js"]').src).href;
+            return frame;
+        });
+        const headPatches = glanceFrames.map(() => document.createElement('canvas'));
+        const prepareHeadPatches = () => {
+            if (!sceneTransform || !sceneReady) {
+                return;
+            }
+            const { scale, left, top } = sceneTransform;
+            headRegion = { x: left + (leopard.naturalWidth - 735) * scale, y: top + 185 * scale, width: 195 * scale, height: 150 * scale };
+            glanceFrames.forEach((frame, index) => {
+                if (!frame.complete || !frame.naturalWidth) {
+                    return;
+                }
+                const patch = headPatches[index];
+                patch.width = Math.ceil(headRegion.width);
+                patch.height = Math.ceil(headRegion.height);
+                const context = patch.getContext('2d');
+                const xRatio = frame.naturalWidth / leopard.naturalWidth;
+                const yRatio = frame.naturalHeight / leopard.naturalHeight;
+                context.setTransform(-1, 0, 0, 1, patch.width, 0);
+                context.drawImage(frame, 540 * xRatio, 185 * yRatio, 195 * xRatio, 150 * yRatio, 0, 0, patch.width, patch.height);
+                context.resetTransform();
+                context.globalCompositeOperation = 'destination-in';
+                for (const horizontal of [true, false]) {
+                    const feather = context.createLinearGradient(0, 0, horizontal ? patch.width : 0, horizontal ? 0 : patch.height);
+                    feather.addColorStop(0, 'transparent');
+                    feather.addColorStop(0.12, '#000');
+                    feather.addColorStop(0.88, '#000');
+                    feather.addColorStop(1, 'transparent');
+                    context.fillStyle = feather;
+                    context.fillRect(0, 0, patch.width, patch.height);
+                }
+            });
+        };
+        let sceneReady = false;
+        let sceneVisible = true;
+        let lastBreathFrame = 0;
+        const prepareLivingScene = () => {
+            if (!leopard.complete || !leopard.naturalWidth) {
+                return;
+            }
+            const width = hero.clientWidth;
+            const height = hero.clientHeight;
+            livingScene.width = sceneBase.width = width;
+            livingScene.height = sceneBase.height = height;
+            const scale = Math.max(width / leopard.naturalWidth, height / leopard.naturalHeight);
+            const imageWidth = leopard.naturalWidth * scale;
+            const imageHeight = leopard.naturalHeight * scale;
+            const left = Math.max(width - imageWidth, Math.min(0, width * 0.7 - (leopard.naturalWidth - 500) * scale));
+            const top = (height - imageHeight) * 0.64;
+            baseContext.setTransform(-1, 0, 0, 1, left + imageWidth, top);
+            baseContext.drawImage(leopard, 0, 0, imageWidth, imageHeight);
+            baseContext.resetTransform();
+            chestRegion = { x: left + (leopard.naturalWidth - 620) * scale, y: top + 285 * scale, width: 240 * scale, height: 155 * scale };
+            chestPatch.width = Math.ceil(chestRegion.width);
+            chestPatch.height = Math.ceil(chestRegion.height);
+            furSpots = [];
+            const source = document.createElement('canvas');
+            source.width = leopard.naturalWidth;
+            source.height = leopard.naturalHeight;
+            const sourceContext = source.getContext('2d', { willReadFrequently: true });
+            sourceContext.drawImage(leopard, 0, 0);
+            const pixels = sourceContext.getImageData(0, 0, source.width, source.height).data;
+            for (let y = 290; y < 425; y += 9) {
+                for (let x = 390; x < 610; x += 9) {
+                    const offset = (y * source.width + x) * 4;
+                    if (pixels[offset] < 85 && pixels[offset + 1] < 70 && pixels[offset + 2] < 60) {
+                        furSpots.push({ x: (left + (source.width - x) * scale) / width, y: (top + y * scale) / height });
+                    }
                 }
             }
-        }
-        requestJourneyFrame();
-    });
+            sceneContext.drawImage(sceneBase, 0, 0);
+            sceneReady = true;
+            sceneTransform = { scale, left, top };
+            prepareHeadPatches();
+            hero.classList.add('has-living-scene');
+            requestJourneyFrame();
+        };
+        const breathe = (timestamp) => {
+            if (sceneReady && sceneVisible && !document.hidden && !motionPreference.matches && (renderedProgress || 0) < 0.9 && timestamp - lastBreathFrame >= 33) {
+                lastBreathFrame = timestamp;
+                const expansion = 1 + Math.sin(timestamp / 1200) * 0.004;
+                const { x, y, width, height } = chestRegion;
+                patchContext.resetTransform();
+                patchContext.clearRect(0, 0, chestPatch.width, chestPatch.height);
+                patchContext.globalCompositeOperation = 'source-over';
+                patchContext.drawImage(sceneBase, x, y, width, height, width * (1 - expansion) / 2, height * (1 - expansion) / 2, width * expansion, height * expansion);
+                patchContext.globalCompositeOperation = 'destination-in';
+                patchContext.setTransform(width / 2, 0, 0, height / 2, width / 2, height / 2);
+                const feather = patchContext.createRadialGradient(0, 0, 0, 0, 0, 1);
+                feather.addColorStop(0.45, '#000');
+                feather.addColorStop(1, 'transparent');
+                patchContext.fillStyle = feather;
+                patchContext.fillRect(-1, -1, 2, 2);
+                patchContext.resetTransform();
+                sceneContext.drawImage(sceneBase, 0, 0);
+                sceneContext.drawImage(chestPatch, x, y);
+                const glance = ease(clamp(((renderedProgress || 0) - 0.025) / 0.38)) * 2;
+                if (headRegion && glance > 0) {
+                    headPatches.forEach((patch, index) => {
+                        if (!patch.width || !glanceFrames[index].complete || !glanceFrames[index].naturalWidth) {
+                            return;
+                        }
+                        sceneContext.globalAlpha = index === 0 ? Math.min(1, glance) : Math.max(0, glance - 1);
+                        sceneContext.drawImage(patch, headRegion.x, headRegion.y, headRegion.width, headRegion.height);
+                    });
+                    sceneContext.globalAlpha = 1;
+                }
+                livingScene.dataset.glanceProgress = glance.toFixed(4);
+            }
+            window.requestAnimationFrame(breathe);
+        };
+        new IntersectionObserver((entries) => { sceneVisible = entries[0].isIntersecting; }).observe(hero);
+        glanceFrames.forEach((frame) => frame.addEventListener('load', prepareHeadPatches));
+        leopard.addEventListener('load', prepareLivingScene);
+        window.addEventListener('resize', prepareLivingScene);
+        motionPreference.addEventListener('change', prepareLivingScene);
+        prepareLivingScene();
+        window.requestAnimationFrame(breathe);
+    } else {
+        walkingAtlas.addEventListener('load', () => {
+            const frameWidth = walkingAtlas.naturalWidth / 4;
+            const frameHeight = walkingAtlas.naturalHeight / 3;
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.ceil(frameWidth);
+            canvas.height = Math.ceil(frameHeight);
+            const context = canvas.getContext('2d', { willReadFrequently: true });
+            context.drawImage(walkingAtlas, frameWidth * 3, frameHeight * 2, frameWidth, frameHeight, 0, 0, canvas.width, canvas.height);
+            const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+            for (let y = 12; y < canvas.height * 0.65; y += 8) {
+                for (let x = Math.floor(canvas.width * 0.2); x < canvas.width * 0.8; x += 8) {
+                    const offset = (y * canvas.width + x) * 4;
+                    const nearby = (y * canvas.width + Math.min(canvas.width - 1, x + 7)) * 4;
+                    if (pixels[offset + 3] > 220 && pixels[offset] < 85 && pixels[offset + 1] < 70 && pixels[offset + 2] < 60 && pixels[nearby] > 110 && pixels[nearby] > pixels[nearby + 2] * 1.2) {
+                        furSpots.push({ x: x / canvas.width, y: y / canvas.height });
+                    }
+                }
+            }
+            requestJourneyFrame();
+        });
+    }
     configureJourney();
 }
