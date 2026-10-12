@@ -23,6 +23,29 @@ class ParkWebsiteTest extends TestCase
         $this->get('/unknown-page')->assertNotFound();
     }
 
+    public function test_newsletter_signup_is_saved_once(): void
+    {
+        $this->from('/')->post(route('newsletter.subscribe'), [
+            'newsletter_email' => 'Guest@example.com',
+        ])->assertRedirect(url('/').'#newsletter')->assertSessionHas('newsletter_success');
+
+        $this->from('/')->post(route('newsletter.subscribe'), [
+            'newsletter_email' => 'guest@example.com',
+        ])->assertSessionHas('newsletter_success');
+
+        $this->assertDatabaseHas('newsletter_subscriptions', ['email' => 'guest@example.com']);
+        $this->assertDatabaseCount('newsletter_subscriptions', 1);
+    }
+
+    public function test_invalid_newsletter_email_is_rejected_separately_from_contact_form(): void
+    {
+        $this->from('/')->post(route('newsletter.subscribe'), [
+            'newsletter_email' => 'invalid-email',
+        ])->assertSessionHasErrors(['newsletter_email'], errorBag: 'newsletter');
+
+        $this->assertDatabaseCount('newsletter_subscriptions', 0);
+    }
+
     private function enquiry(): array
     {
         return ['name' => 'Test Traveller', 'email' => 'traveller@example.com', 'category' => 'Reservations', 'arrival' => now()->addDays(10)->toDateString(), 'departure' => now()->addDays(12)->toDateString(), 'travellers' => 2, 'message' => 'Please send a quotation for a private safari.', 'consent' => '1'];

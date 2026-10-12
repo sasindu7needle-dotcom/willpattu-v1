@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEnquiryRequest;
+use App\Http\Requests\SubscribeNewsletterRequest;
 use App\Models\PageContent;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -84,5 +85,16 @@ class ParkController extends Controller
         DB::table('enquiries')->insert($data);
 
         return to_route('page', ['slug' => 'contact'])->with('success', 'Your enquiry has been received. Reference: '.$data['reference'].'. Your booking is subject to confirmation.');
+    }
+
+    public function subscribe(SubscribeNewsletterRequest $request): RedirectResponse
+    {
+        DB::table('newsletter_subscriptions')->insertOrIgnore([
+            'email' => Str::lower($request->validated('newsletter_email')),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return back()->with('newsletter_success', 'Thank you for subscribing to our newsletter.')->withFragment('newsletter');
     }
 }

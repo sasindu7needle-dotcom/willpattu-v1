@@ -185,12 +185,114 @@ if (wildlifeJourney) {
         let chestRegion = null;
         let headRegion = null;
         let sceneTransform = null;
-        const glanceFrames = ['leopard-glance-half.png', 'leopard-glance-look.png'].map((name) => {
+        const glanceFrames = [leopard, ...['leopard-glance-early.png', 'leopard-glance-half.png', 'leopard-glance-late.png', 'leopard-glance-look.png'].map((name) => {
             const frame = new Image();
             frame.src = new URL(`../images/${name}`, document.querySelector('script[src*="park.js"]').src).href;
             return frame;
-        });
+        })];
         const headPatches = glanceFrames.map(() => document.createElement('canvas'));
+        const morphCanvas = document.createElement('canvas');
+        morphCanvas.width = 192;
+        morphCanvas.height = 148;
+        const morphContext = morphCanvas.getContext('2d');
+        const morphPixels = morphContext.createImageData(192, 148);
+        let morphFrames = [];
+        let motionFields = [];
+        const buildMotionField = (first, second) => {
+            const width = 192;
+            const height = 148;
+            const columns = 12;
+            const rows = 9;
+            const vectors = [];
+            const luminance = (pixels, x, y) => {
+                const offset = (Math.max(0, Math.min(height - 1, y)) * width + Math.max(0, Math.min(width - 1, x))) * 4;
+                return pixels[offset] * 0.3 + pixels[offset + 1] * 0.6 + pixels[offset + 2] * 0.1;
+            };
+            for (let row = 0; row <= rows; row++) {
+                for (let column = 0; column <= columns; column++) {
+                    const x = Math.round(column * (width - 1) / columns);
+                    const y = Math.round(row * (height - 1) / rows);
+                    let best = Infinity;
+                    let vector = { x: 0, y: 0 };
+                    for (let dy = -10; dy <= 10; dy += 2) {
+                        for (let dx = -10; dx <= 10; dx += 2) {
+                            let error = (dx * dx + dy * dy) * 0.12;
+                            for (let sy = -4; sy <= 4; sy += 2) {
+                                for (let sx = -4; sx <= 4; sx += 2) {
+                                    error += Math.abs(luminance(first, x + sx, y + sy) - luminance(second, x + sx + dx, y + sy + dy));
+                                }
+                            }
+                            if (error < best) {
+                                best = error;
+                                vector = { x: dx, y: dy };
+                            }
+                        }
+                    }
+                    const edge = Math.min(1, x / 24, (width - 1 - x) / 24, y / 18, (height - 1 - y) / 18);
+                    vectors.push({ x: vector.x * edge, y: vector.y * edge });
+                }
+            }
+            const dense = new Float32Array(width * height * 2);
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const gx = x / (width - 1) * columns;
+                    const gy = y / (height - 1) * rows;
+                    const column = Math.min(columns - 1, Math.floor(gx));
+                    const row = Math.min(rows - 1, Math.floor(gy));
+                    const tx = gx - column;
+                    const ty = gy - row;
+                    const nodes = [vectors[row * (columns + 1) + column], vectors[row * (columns + 1) + column + 1], vectors[(row + 1) * (columns + 1) + column], vectors[(row + 1) * (columns + 1) + column + 1]];
+                    const weights = [(1 - tx) * (1 - ty), tx * (1 - ty), (1 - tx) * ty, tx * ty];
+                    for (let n = 0; n < 4; n++) {
+                        dense[(y * width + x) * 2] += nodes[n].x * weights[n];
+                        dense[(y * width + x) * 2 + 1] += nodes[n].y * weights[n];
+                    }
+                }
+            }
+            return dense;
+        };
+        const prepareMorph = () => {
+            if (!glanceFrames.every((frame) => frame.complete && frame.naturalWidth)) {
+                return;
+            }
+            morphFrames = headPatches.map((patch) => {
+                morphContext.clearRect(0, 0, 192, 148);
+                morphContext.drawImage(patch, 0, 0, 192, 148);
+                return morphContext.getImageData(0, 0, 192, 148).data;
+            });
+            motionFields = morphFrames.slice(0, -1).map((frame, index) => ({ forward: buildMotionField(frame, morphFrames[index + 1]), backward: buildMotionField(morphFrames[index + 1], frame) }));
+        };
+        const drawMorph = (position) => {
+            const lower = Math.min(3, Math.floor(position));
+            const blend = position - lower;
+            const first = morphFrames[lower];
+            const second = morphFrames[lower + 1];
+            const field = motionFields[lower];
+            const sample = (pixels, x, y, channel) => {
+                x = Math.max(0, Math.min(190.999, x));
+                y = Math.max(0, Math.min(146.999, y));
+                const ix = Math.floor(x);
+                const iy = Math.floor(y);
+                const fx = x - ix;
+                const fy = y - iy;
+                const offset = (iy * 192 + ix) * 4 + channel;
+                return pixels[offset] * (1 - fx) * (1 - fy) + pixels[offset + 4] * fx * (1 - fy) + pixels[offset + 768] * (1 - fx) * fy + pixels[offset + 772] * fx * fy;
+            };
+            for (let y = 0; y < 148; y++) {
+                for (let x = 0; x < 192; x++) {
+                    const pixel = y * 192 + x;
+                    const ax = x - field.forward[pixel * 2] * blend;
+                    const ay = y - field.forward[pixel * 2 + 1] * blend;
+                    const bx = x - field.backward[pixel * 2] * (1 - blend);
+                    const by = y - field.backward[pixel * 2 + 1] * (1 - blend);
+                    for (let channel = 0; channel < 4; channel++) {
+                        morphPixels.data[pixel * 4 + channel] = sample(first, ax, ay, channel) * (1 - blend) + sample(second, bx, by, channel) * blend;
+                    }
+                }
+            }
+            morphContext.putImageData(morphPixels, 0, 0);
+            sceneContext.drawImage(morphCanvas, headRegion.x, headRegion.y, headRegion.width, headRegion.height);
+        };
         const prepareHeadPatches = () => {
             if (!sceneTransform || !sceneReady) {
                 return;
@@ -221,10 +323,12 @@ if (wildlifeJourney) {
                     context.fillRect(0, 0, patch.width, patch.height);
                 }
             });
+            prepareMorph();
         };
         let sceneReady = false;
         let sceneVisible = true;
         let lastBreathFrame = 0;
+        let smoothedGlance = 0;
         const prepareLivingScene = () => {
             if (!leopard.complete || !leopard.naturalWidth) {
                 return;
@@ -268,6 +372,7 @@ if (wildlifeJourney) {
         };
         const breathe = (timestamp) => {
             if (sceneReady && sceneVisible && !document.hidden && !motionPreference.matches && (renderedProgress || 0) < 0.9 && timestamp - lastBreathFrame >= 33) {
+                const glanceElapsed = Math.min(80, timestamp - lastBreathFrame || 33);
                 lastBreathFrame = timestamp;
                 const expansion = 1 + Math.sin(timestamp / 1200) * 0.004;
                 const { x, y, width, height } = chestRegion;
@@ -285,15 +390,17 @@ if (wildlifeJourney) {
                 patchContext.resetTransform();
                 sceneContext.drawImage(sceneBase, 0, 0);
                 sceneContext.drawImage(chestPatch, x, y);
-                const glance = ease(clamp(((renderedProgress || 0) - 0.025) / 0.38)) * 2;
-                if (headRegion && glance > 0) {
-                    headPatches.forEach((patch, index) => {
-                        if (!patch.width || !glanceFrames[index].complete || !glanceFrames[index].naturalWidth) {
-                            return;
-                        }
-                        sceneContext.globalAlpha = index === 0 ? Math.min(1, glance) : Math.max(0, glance - 1);
-                        sceneContext.drawImage(patch, headRegion.x, headRegion.y, headRegion.width, headRegion.height);
-                    });
+                const targetGlance = ease(clamp(((renderedProgress || 0) - 0.025) / 0.38));
+                const change = (targetGlance - smoothedGlance) * (1 - Math.exp(-glanceElapsed / 150));
+                smoothedGlance += Math.max(-glanceElapsed / 700, Math.min(glanceElapsed / 700, change));
+                if (Math.abs(smoothedGlance - targetGlance) < 0.0001) {
+                    smoothedGlance = targetGlance;
+                }
+                const glance = smoothedGlance * (glanceFrames.length - 1);
+                if (headRegion && glance > 0 && glanceFrames.every((frame) => frame.complete && frame.naturalWidth)) {
+                    if (motionFields.length === 4) {
+                        drawMorph(glance);
+                    }
                     sceneContext.globalAlpha = 1;
                 }
                 livingScene.dataset.glanceProgress = glance.toFixed(4);

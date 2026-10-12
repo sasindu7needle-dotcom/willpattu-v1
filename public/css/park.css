@@ -77,3 +77,52 @@
 .wildlife-journey .hero-note{display:none}
 @media(max-width:850px){.hero-booking{margin-top:62px;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.wildlife-journey .hero-content{padding-top:clamp(65px,13vh,110px)}.wildlife-journey .hero-content p{margin-bottom:30px}}
 @media(max-width:550px){.wildlife-journey .hero-content{width:calc(100% - 36px);padding:45px 0 120px}.wildlife-journey .hero-content h1{font-size:clamp(46px,15.5vw,70px);letter-spacing:1px}.wildlife-journey .hero-content p{font-size:20px;margin-bottom:24px}.hero-booking{margin-top:calc(clamp(96px,18svh,160px) + 40px);grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px}.hero-booking .booking-field{padding-inline:10px}.hero-booking .booking-field:first-of-type,.booking-submit{grid-column:1 / -1}.hero-booking .booking-field,.booking-submit{height:44px;min-height:44px}}
+
+/* Resort footer */
+.resort-footer{padding:0;background:var(--deep);color:var(--cream);font-family:var(--sans)}
+.resort-footer-main{width:min(1425px,calc(100% - 128px));margin:auto;padding:80px 0 76px;display:grid;grid-template-columns:1.35fr .7fr 1.1fr 1.2fr;gap:56px;min-height:394px}
+.resort-footer-brand{padding-top:10px}
+.resort-footer-logo{display:inline-flex;flex-direction:column;text-align:center;font:28px/1.2 var(--serif);letter-spacing:2px;white-space:nowrap}
+.resort-footer-logo span{font:8px/1.6 var(--sans);letter-spacing:4px;margin-top:12px}
+.resort-footer-socials{display:flex;gap:12px;margin-top:38px}
+.resort-footer-socials a{display:grid;place-items:center;width:45px;height:45px;border:1px solid var(--line);border-radius:50%;font-size:21px;line-height:1}
+.resort-footer-navigation{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+.resort-footer-navigation a{font-size:14px;line-height:1.7;letter-spacing:2px;text-transform:uppercase}
+.resort-footer a{transition:color .2s}
+.resort-footer a:hover{color:var(--gold)}
+.resort-footer-contact address{display:flex;flex-direction:column;gap:20px;font-style:normal;font-size:13px;line-height:1.8}
+.resort-footer-contact address a{display:flex;align-items:flex-start;gap:16px}
+.resort-footer-contact address svg{width:20px;height:20px;flex-shrink:0;margin-top:2px;fill:var(--gold);color:var(--gold)}
+.resort-footer-newsletter{margin-top:40px;max-width:360px}
+.resort-footer-newsletter>label{color:var(--cream);font:22px/1.2 var(--serif);margin-bottom:14px}
+.resort-footer-newsletter-field{display:flex;height:45px}
+.resort-footer-newsletter-field input{min-width:0;flex:1;margin:0;border:0;border-radius:0;background:var(--cream);color:var(--deep);color-scheme:light;padding:12px 18px;font-size:12px;letter-spacing:1px}
+.resort-footer-newsletter-field input::placeholder{color:#5c6257}
+.resort-footer-newsletter-field button{display:grid;place-items:center;flex-shrink:0;width:45px;border:0;background:var(--gold);color:var(--deep);transition:background .2s}
+.resort-footer-newsletter-field button:hover{background:#dbc18f}
+.resort-footer-newsletter-field button svg{width:22px;height:22px}
+.resort-footer-message{margin:12px 0 0;color:var(--gold);font-size:12px;line-height:1.5}
+.resort-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:24px;background:var(--forest);padding:17px 4.2%;font-size:11px;line-height:1.8;letter-spacing:.5px}
+.resort-footer-bottom nav{display:flex;flex-wrap:wrap;justify-content:center}
+.resort-footer-bottom nav a+a:before{content:'|';margin:0 12px;color:var(--cream)}
+.resort-footer-credit strong{font-weight:500;white-space:nowrap}
+@media(max-width:1150px){.resort-footer-main{width:calc(100% - 80px);grid-template-columns:1fr .7fr .8fr 1.2fr;gap:30px;padding-block:65px}.resort-footer-logo{font-size:24px;letter-spacing:1px}.resort-footer-navigation a{font-size:12px;letter-spacing:1.5px}.resort-footer-bottom{flex-wrap:wrap;justify-content:center;text-align:center}.resort-footer-credit{flex-basis:100%}}
+@media(max-width:850px){.resort-footer-main{grid-template-columns:1fr 1fr;gap:42px 50px;min-height:0}.resort-footer-brand{grid-column:1/-1;padding:0}.resort-footer-socials{margin-top:22px}.resort-footer-contact{grid-column:1/-1}.resort-footer-newsletter{margin-top:28px}.resort-footer-bottom{gap:12px}}
+@media(max-width:550px){.resort-footer-main{width:calc(100% - 44px);padding:45px 0;gap:34px 20px}.resort-footer-logo{font-size:25px}.resort-footer-navigation{gap:16px}.resort-footer-navigation a{font-size:11px}.resort-footer-contact address{font-size:12px;gap:18px}.resort-footer-newsletter>label{font-size:23px}.resort-footer-newsletter{max-width:none}.resort-footer-bottom{padding:20px 22px;font-size:10px}.resort-footer-bottom>span,.resort-footer-bottom>nav{width:100%}.resort-footer-bottom nav a+a:before{margin-inline:9px}}
+
+/* Keep the feature row below the reservation form in document flow. */
+.wildlife-journey .hero-content{padding-bottom:32px}
+.hero-details{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px 30px;margin-top:24px}
+.wildlife-journey .hero-details .hero-strip{position:static;display:flex;flex-wrap:wrap;gap:12px 28px;opacity:1;transform:none}
+.wildlife-journey .hero-details .scroll-note{position:static;display:block;margin-left:auto;white-space:nowrap;opacity:1;transform:none}
+@media(min-width:851px) and (max-height:850px){.wildlife-journey .hero-content{padding-top:190px}.wildlife-journey .hero-content h1{font-size:clamp(64px,10svh,85px);margin:16px 0 22px}.wildlife-journey .hero-content p{font-size:22px;margin-bottom:24px}.hero-booking{margin-top:34px}}
+@media(max-width:550px){.hero-details{gap:16px;margin-top:20px}.wildlife-journey .hero-details .hero-strip{width:100%;gap:10px 16px}.hero-details .hero-strip span{width:calc(50% - 8px)}.wildlife-journey .hero-details .scroll-note{font-size:8px}}
+@media(max-width:550px) and (max-height:750px){.hero-booking{margin-top:40px}.wildlife-journey .hero-content{padding-top:30px}.wildlife-journey .hero-content h1{margin:16px 0 20px}.wildlife-journey .hero-content p{font-size:18px}}
+
+/* Use the available desktop hero space beneath the introduction. */
+@media(min-width:851px){
+    .is-animated .hero-content{height:100%;display:flex;flex-direction:column}
+    .is-animated .hero-copy{flex-shrink:0;margin-bottom:34px}
+    .is-animated .hero-booking{flex-shrink:0;margin-top:auto}
+    .is-animated .hero-details{flex-shrink:0}
+}
