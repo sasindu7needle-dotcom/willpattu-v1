@@ -2,7 +2,26 @@
 @section('title', $page['title'])
 @section('description', $page['intro'])
 @section('content')
-<section class="page-hero"><img src="{{ asset('images/Makara_resorts_alankuda_beach_excursion_wilpattu_'.$page['image'].'.jpg') }}" alt="Wilpattu wildlife and natural landscape" fetchpriority="high"><div class="hero-shade"></div><div class="container"><a class="breadcrumb" href="{{ route('home') }}">Home / {{ $page['kicker'] }}</a><span class="eyebrow">{{ $page['kicker'] }}</span><h1>{{ $page['title'] }}</h1><p>{{ $page['intro'] }}</p></div></section>
+@php
+    $pageHeroImages = [
+        'stay' => 'images/page-stay-retreat.webp',
+        'safaris' => 'images/page-safaris-morning.webp',
+        'dining' => 'images/page-dining-sri-lankan-table.webp',
+        'experiences' => 'images/page-experiences-culture.webp',
+        'wildlife' => 'images/page-wildlife-leopard.webp',
+        'offers' => 'images/page-offers-couples.webp',
+    ];
+    $pageContentImages = [
+        'stay' => ['images/page-stay-retreat.webp', 'images/page-stay-family.webp', 'images/page-stay-villas.webp'],
+        'safaris' => ['images/page-safaris-morning.webp', 'images/page-safaris-evening.webp', 'images/page-safaris-full-day.webp', 'images/page-safaris-private.webp'],
+        'dining' => ['images/page-dining-sri-lankan-table.webp', 'images/page-dining-breakfast.webp', 'images/page-dining-evening.webp'],
+        'experiences' => ['images/page-experiences-birdwatching.webp', 'images/page-experiences-photography.webp', 'images/page-experiences-culture.webp', 'images/page-experiences-village.webp'],
+        'wildlife' => ['images/page-wildlife-leopard.webp', 'images/page-wildlife-sloth-bear.webp', 'images/page-wildlife-elephants-deer.webp', 'images/page-wildlife-birdlife.webp', 'images/page-wildlife-crocodile.webp', 'images/page-wildlife-villus.webp'],
+        'offers' => ['images/page-offers-safari.webp', 'images/page-offers-couples.webp', 'images/page-offers-family.webp', 'images/page-offers-long-stay.webp'],
+    ];
+    $defaultHeroImage = 'images/Makara_resorts_alankuda_beach_excursion_wilpattu_'.$page['image'].'.jpg';
+@endphp
+<section class="page-hero"><img src="{{ asset($pageHeroImages[$slug] ?? $defaultHeroImage) }}" alt="{{ $page['kicker'] }} in Wilpattu" fetchpriority="high"><div class="hero-shade"></div><div class="container"><a class="breadcrumb" href="{{ route('home') }}">Home / {{ $page['kicker'] }}</a><span class="eyebrow">{{ $page['kicker'] }}</span><h1>{{ $page['title'] }}</h1><p>{{ $page['intro'] }}</p></div></section>
 <div class="container page-content">
 @if($slug === 'contact')
 @php($contactContent = $page['settings'] ?? config('content.pages.contact.settings'))
@@ -18,8 +37,8 @@
 @elseif($slug === 'journal')
 <div class="three-grid">@foreach(config('content.articles') as $key=>$article)<a class="editorial-card" href="{{ route('article',$key) }}"><img src="{{ asset('images/Makara_resorts_alankuda_beach_excursion_wilpattu_'.$article['image'].'.jpg') }}" alt="Wilpattu natural landscape"><span class="eyebrow">FIELD NOTES</span><h3>{{ $article['title'] }}</h3><span class="text-link">Read the story ↗</span></a>@endforeach</div>
 @else
-<div class="content-grid">@foreach($page['items'] as $item)<article class="content-card">@if(in_array($slug,['stay','safaris','wildlife','experiences','dining','offers','guest-stories']))<img src="{{ asset('images/Makara_resorts_alankuda_beach_excursion_wilpattu_'.$item['image'].'.jpg') }}" alt="Wilpattu national park landscape" loading="lazy">@endif<div class="content-card-copy"><span class="eyebrow">{{ $item['meta'] }}</span><h2>{{ $item['title'] }}</h2><p>{{ $item['text'] }}</p>@if(in_array($slug,['stay','safaris','experiences','dining','offers']))<a class="text-link" href="{{ route('page',['slug'=>'contact','interest'=>$item['title']]) }}">{{ $slug==='offers' ? 'Enquire about this escape' : 'Check availability' }} ↗</a>@endif</div></article>@endforeach</div>
-@if(in_array($slug,['stay','dining']))<p class="muted">National park photography illustrates the destination. Verified property photography and room / menu specifications are pending.</p>@endif
+<div class="content-grid">@foreach($page['items'] as $item)@php($defaultContentImage = 'images/Makara_resorts_alankuda_beach_excursion_wilpattu_'.$item['image'].'.jpg')<article class="content-card">@if(in_array($slug,['stay','safaris','wildlife','experiences','dining','offers','guest-stories']))<img src="{{ asset($pageContentImages[$slug][$loop->index] ?? $defaultContentImage) }}" alt="{{ $item['title'] }} in Wilpattu" loading="lazy">@endif<div class="content-card-copy"><span class="eyebrow">{{ $item['meta'] }}</span><h2>{{ $item['title'] }}</h2><p>{{ $item['text'] }}</p>@if(in_array($slug,['stay','safaris','experiences','dining','offers']))<a class="text-link" href="{{ route('page',['slug'=>'contact','interest'=>$item['title']]) }}">{{ $slug==='offers' ? 'Enquire about this escape' : 'Check availability' }} ↗</a>@endif</div></article>@endforeach</div>
+@if(in_array($slug,['stay','dining']))<p class="muted">Concept imagery illustrates the intended atmosphere. Confirm current room details, facilities and dining arrangements with reservations.</p>@endif
 @if($slug === 'getting-here')<iframe class="map" title="Map of Wilpattu National Park" src="https://maps.google.com/maps?q=Wilpattu%20National%20Park%20Sri%20Lanka&t=&z=10&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><a class="button gold" href="{{ route('page',['slug'=>'contact','category'=>'Private Transfer']) }}">Request a private transfer ↗</a>@endif
 @if(in_array($slug,['wildlife','about','plan-your-stay','getting-here']))<p class="source-note">Destination background adapted from the <a href="{{ config('park.source') }}" target="_blank" rel="noopener">Makara Resorts Wilpattu guide ↗</a>. Confirm current park conditions before travel.</p>@endif
 @endif
