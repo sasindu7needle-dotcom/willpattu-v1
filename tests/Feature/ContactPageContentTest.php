@@ -61,7 +61,7 @@ class ContactPageContentTest extends TestCase
             ->assertSee('Your enquiry is the first step; confirmation follows separately.');
     }
 
-    public function test_contact_form_fields_and_submission_behavior_remain_unchanged(): void
+    public function test_contact_form_keeps_essential_fields_and_submission_action(): void
     {
         $this->seed();
         $this->actingAs($this->administrator());
@@ -72,7 +72,8 @@ class ContactPageContentTest extends TestCase
         $this->get('/contact')
             ->assertSee('name="name"', false)
             ->assertSee('name="email"', false)
-            ->assertSee('name="category"', false)
+            ->assertSee('name="phone"', false)
+            ->assertDontSee('name="category"', false)
             ->assertSee('name="message"', false)
             ->assertSee('name="consent"', false)
             ->assertSee('action="'.route('enquire').'"', false);

@@ -26,6 +26,7 @@
             <span class="sidebar-label">OVERVIEW</span>
             <a class="sidebar-link @if(request()->routeIs('admin.dashboard')) active @endif" href="{{ route('admin.dashboard') }}"><span class="nav-icon">⌂</span> Dashboard</a>
 
+            <a class="sidebar-link {{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}" href="{{ route('admin.bookings.index') }}">Bookings &amp; room inventory</a>
             <span class="sidebar-label settings-label">SETTINGS</span>
             <div class="settings-heading"><span>Page settings</span><small>{{ count(config('content.pages')) + 1 }}</small></div>
             <div class="page-nav">

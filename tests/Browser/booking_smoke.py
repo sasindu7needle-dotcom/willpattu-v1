@@ -1,0 +1,81 @@
+import os
+from datetime import datetime, timedelta
+from playwright.sync_api import sync_playwright
+
+base = os.environ.get("BOOKING_TEST_URL", "http://127.0.0.1:8766")
+with sync_playwright() as playwright:
+    browser = playwright.chromium.launch()
+    admin_context = browser.new_context(viewport={"width": 1440, "height": 1000})
+    admin = admin_context.new_page()
+    errors = []
+    admin.on("pageerror", lambda error: errors.append(str(error)))
+    admin.goto(base + "/admin/login")
+    admin.locator('[name="username"]').fill(os.environ["BOOKING_TEST_USERNAME"])
+    admin.locator('[name="password"]').fill(os.environ["BOOKING_TEST_PASSWORD"])
+    admin.get_by_role("button", name="Enter dashboard").click()
+    admin.wait_for_url(base + "/admin")
+    admin.goto(base + "/admin/bookings/inventory")
+    existing = admin.locator("form.booking-admin-inventory").filter(has=admin.get_by_role("heading", name="Browser Forest Villa", exact=True))
+    form = existing.first if existing.count() else admin.locator("form.booking-admin-inventory").last
+    save_label = "Save room & rates" if existing.count() else "Add room type"
+    for name, value in {"name": "Browser Forest Villa", "description": "A private forest retreat.", "inventory": "3", "capacity": "2", "local_rate": "10000", "international_rate": "15000"}.items():
+        form.locator('[name="' + name + '"]').fill(value)
+    form.locator('[name="is_active"]').select_option("1")
+    form.get_by_role("button", name=save_label).click()
+    admin.get_by_text("Room inventory saved.").wait_for()
+
+    guest_context = browser.new_context(viewport={"width": 1440, "height": 1000})
+    guest = guest_context.new_page()
+    guest.on("pageerror", lambda error: errors.append(str(error)))
+    guest.goto(base)
+    hero = guest.locator("[data-hero-booking]")
+    hero.locator('[name="property"]').select_option("makara")
+    arrival = (datetime.now() + timedelta(days=10)).strftime("%Y-%m-%d")
+    departure = (datetime.now() + timedelta(days=12)).strftime("%Y-%m-%d")
+    hero.locator('[name="arrival"]').fill(arrival)
+    hero.locator('[name="departure"]').fill(departure)
+    hero.locator('[name="nationality"]').select_option("Sri Lankan")
+    hero.get_by_role("button", name="Book now").click()
+    guest.wait_for_url("**/booking/search?**")
+    guest.get_by_text("3 available for your dates", exact=True).wait_for()
+    guest.locator("[data-room-quantity]").select_option("2")
+    assert guest.locator("[data-selection-total]").inner_text() == "LKR 40,000.00"
+    assert guest.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    assert guest.locator("h1").bounding_box()["y"] > guest.locator(".resort-header").bounding_box()["height"]
+    guest.screenshot(path="storage/app/booking-desktop.png", full_page=True)
+    guest.set_viewport_size({"width": 390, "height": 844})
+    assert guest.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    guest.screenshot(path="storage/app/booking-mobile.png", full_page=True)
+    guest.get_by_role("button", name="Continue to guest details").click()
+    guest.wait_for_url("**/booking/review/**")
+    guest.locator('[name="name"]').fill("Browser Guest")
+    guest.locator('[name="email"]').fill("invalid")
+    guest.locator('[name="phone"]').fill("+94770000000")
+    guest.locator('[name="consent"]').check()
+    guest.locator("[data-confirm-booking]").evaluate("(form) => form.noValidate = true")
+    guest.get_by_role("button", name="Confirm booking").click()
+    guest.locator(".notice.error").wait_for()
+    guest.locator('[name="email"]').fill("browser@example.com")
+    guest.get_by_role("button", name="Confirm booking").click()
+    guest.wait_for_url("**/booking/confirmation/**")
+    guest.get_by_text("The wild is waiting.", exact=True).wait_for()
+    reference = guest.locator(".reservation-reference strong").inner_text()
+    assert guest.evaluate("document.documentElement.scrollWidth <= innerWidth")
+    guest.reload()
+    guest.get_by_text(reference, exact=True).wait_for()
+    guest.screenshot(path="storage/app/booking-confirmation-mobile.png", full_page=True)
+
+    admin.goto(base + "/admin/bookings")
+    admin.get_by_text(reference, exact=True).click()
+    admin.get_by_role("heading", name="Browser Guest").wait_for()
+    admin.on("dialog", lambda dialog: dialog.accept())
+    admin.get_by_role("button", name="Cancel booking & release rooms").click()
+    admin.get_by_text("Booking cancelled. Rooms are available for these dates again.").wait_for()
+    guest.goto(base + "/booking/search?property=makara&arrival=" + arrival + "&departure=" + departure + "&nationality=Sri+Lankan&adults=2&children=0")
+    guest.get_by_text("3 available for your dates", exact=True).wait_for()
+    for width in [320, 390, 768, 1440]:
+        guest.set_viewport_size({"width": width, "height": 900})
+        assert guest.evaluate("document.documentElement.scrollWidth <= innerWidth"), "overflow at " + str(width)
+    assert not errors, errors
+    browser.close()
+    print("Browser booking checks passed: admin inventory, home search, room count and total, mobile layouts, validation recovery, confirmation, admin cancellation and released availability.")

@@ -79,6 +79,8 @@ class ParkController extends Controller
     public function enquire(StoreEnquiryRequest $request): RedirectResponse
     {
         $data = $request->safe()->except(['consent', 'website']);
+        $data['category'] ??= 'General Enquiries';
+        $data['travellers'] ??= 1;
         $data['reference'] = 'WP-'.Str::upper(Str::random(10));
         $data['created_at'] = now();
         $data['updated_at'] = now();

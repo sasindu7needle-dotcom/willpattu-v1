@@ -69,7 +69,7 @@
 
         <section class="protected-form-panel">
             <span class="protected-form-icon" aria-hidden="true">◇</span>
-            <div><span class="admin-eyebrow">PROTECTED FORM</span><h3>Enquiry fields stay unchanged.</h3><p>Name, email, phone, enquiry type, dates, travellers, interests, message, consent, validation, and submission handling are not editable here.</p></div>
+            <div><span class="admin-eyebrow">PROTECTED FORM</span><h3>Enquiry fields stay unchanged.</h3><p>Name, email, phone, message, consent, validation, and submission handling are not editable here.</p></div>
         </section>
 
         <div class="contact-save-bar"><button class="admin-button compact" type="submit">Save Contact page <span>→</span></button></div>

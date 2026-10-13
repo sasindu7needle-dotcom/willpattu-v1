@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\StayContentItemController;
 use App\Http\Controllers\Admin\StayPageController;
 use App\Http\Controllers\Admin\WildlifeContentItemController;
 use App\Http\Controllers\Admin\WildlifePageController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ParkController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,12 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
     });
 
     Route::middleware(['auth', EnsureUserIsAdmin::class])->group(function (): void {
+        Route::get('/bookings', [App\Http\Controllers\Admin\BookingController::class, 'index'])->name('bookings.index');
+        Route::get('/bookings/inventory', [App\Http\Controllers\Admin\BookingController::class, 'inventory'])->name('bookings.inventory');
+        Route::post('/bookings/inventory', [App\Http\Controllers\Admin\BookingController::class, 'saveRoom'])->name('bookings.rooms.store');
+        Route::put('/bookings/inventory/{room}', [App\Http\Controllers\Admin\BookingController::class, 'saveRoom'])->whereNumber('room')->name('bookings.rooms.update');
+        Route::get('/bookings/{booking}', [App\Http\Controllers\Admin\BookingController::class, 'show'])->whereNumber('booking')->name('bookings.show');
+        Route::put('/bookings/{booking}/cancel', [App\Http\Controllers\Admin\BookingController::class, 'cancel'])->whereNumber('booking')->name('bookings.cancel');
         Route::get('/', DashboardController::class)->name('dashboard');
         Route::get('/pages/home', [HomePageController::class, 'edit'])->name('pages.home.edit');
         Route::put('/pages/home', [HomePageController::class, 'update'])->name('pages.home.update');
@@ -80,6 +87,12 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
 });
 
 Route::get('/', [ParkController::class, 'home'])->name('home');
+Route::get('/booking', [BookingController::class, 'create'])->name('booking.create');
+Route::get('/booking/search', [BookingController::class, 'search'])->name('booking.search');
+Route::post('/booking/checkout', [BookingController::class, 'checkout'])->name('booking.checkout');
+Route::get('/booking/review/{token}', [BookingController::class, 'review'])->whereUuid('token')->name('booking.review');
+Route::post('/booking', [BookingController::class, 'store'])->middleware('throttle:10,1')->name('booking.store');
+Route::get('/booking/confirmation/{reference}', [BookingController::class, 'confirmation'])->name('booking.confirmation');
 Route::post('/contact', [ParkController::class, 'enquire'])->middleware('throttle:5,1')->name('enquire');
 Route::post('/newsletter', [ParkController::class, 'subscribe'])->middleware('throttle:5,1')->name('newsletter.subscribe');
 Route::get('/journal/{slug}', [ParkController::class, 'article'])->name('article');

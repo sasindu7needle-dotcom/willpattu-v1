@@ -11,16 +11,7 @@ document.addEventListener('keydown', (event) => {
         setMenuOpen(false);
     }
 });
-const filters=document.querySelectorAll('[data-filter]');filters.forEach(b=>b.addEventListener('click',()=>{filters.forEach(f=>f.setAttribute('aria-pressed',String(f===b)));document.querySelectorAll('[data-category]').forEach(i=>i.hidden=b.dataset.filter!=='All'&&i.dataset.category!==b.dataset.filter);}));const dialog=document.querySelector('#lightbox');document.querySelectorAll('.gallery-item').forEach(b=>b.addEventListener('click',()=>{const img=b.querySelector('img');document.querySelector('#lightbox-image').src=img.src;document.querySelector('#lightbox-image').alt=img.alt;document.querySelector('#lightbox-caption').textContent=b.dataset.caption;dialog.showModal();}));document.querySelector('.lightbox-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});const arrival=document.querySelector('[name="arrival"]');const departure=document.querySelector('[name="departure"]');if(arrival){arrival.addEventListener('change',()=>{departure.min=arrival.value;departure.required=Boolean(arrival.value);});}
-
-const heroBooking = document.querySelector('[data-hero-booking]');
-if (heroBooking) {
-    heroBooking.addEventListener('submit', () => {
-        const nationality = heroBooking.querySelector('[data-booking-nationality]').value;
-        const promoCode = heroBooking.querySelector('[data-booking-promo]').value.trim();
-        heroBooking.querySelector('[data-booking-message]').value = `I would like to enquire about a stay. Nationality: ${nationality}.${promoCode ? ` Promo code: ${promoCode}.` : ''}`;
-    });
-}
+const filters=document.querySelectorAll('[data-filter]');filters.forEach(b=>b.addEventListener('click',()=>{filters.forEach(f=>f.setAttribute('aria-pressed',String(f===b)));document.querySelectorAll('[data-category]').forEach(i=>i.hidden=b.dataset.filter!=='All'&&i.dataset.category!==b.dataset.filter);}));const dialog=document.querySelector('#lightbox');document.querySelectorAll('.gallery-item').forEach(b=>b.addEventListener('click',()=>{const img=b.querySelector('img');document.querySelector('#lightbox-image').src=img.src;document.querySelector('#lightbox-image').alt=img.alt;document.querySelector('#lightbox-caption').textContent=b.dataset.caption;dialog.showModal();}));document.querySelector('.lightbox-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});const arrival=document.querySelector('[name="arrival"]');const departure=document.querySelector('[name="departure"]');if(arrival && departure){const updateDeparture=()=>{if(!arrival.value){return;}const nextDay=new Date(arrival.value+'T12:00:00Z');nextDay.setUTCDate(nextDay.getUTCDate()+1);departure.min=nextDay.toISOString().slice(0,10);if(departure.value && departure.value<=arrival.value){departure.value=departure.min;}};arrival.addEventListener('change',updateDeparture);updateDeparture();}
 
 const wildlifeJourney = document.querySelector('[data-wildlife-journey]');
 if (wildlifeJourney) {

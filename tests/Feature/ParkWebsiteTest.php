@@ -68,6 +68,28 @@ class ParkWebsiteTest extends TestCase
         $this->assertDatabaseCount('enquiries', 0);
     }
 
+    public function test_contact_form_accepts_an_enquiry_without_booking_details(): void
+    {
+        $this->get('/contact')->assertOk()
+            ->assertDontSee('name="category"', false)
+            ->assertDontSee('name="arrival"', false)
+            ->assertDontSee('name="departure"', false)
+            ->assertDontSee('name="travellers"', false)
+            ->assertDontSee('name="interest"', false);
+
+        $this->post('/contact', [
+            'name' => 'Test Guest',
+            'email' => 'guest@example.com',
+            'message' => 'Please tell me more about your safari experiences.',
+            'consent' => '1',
+        ])->assertRedirect('/contact')->assertSessionHasNoErrors()->assertSessionHas('success');
+
+        $this->assertDatabaseHas('enquiries', [
+            'email' => 'guest@example.com',
+            'category' => 'General Enquiries',
+        ]);
+    }
+
     public function test_honeypot_and_unknown_category_are_rejected(): void
     {
         $data = $this->enquiry();

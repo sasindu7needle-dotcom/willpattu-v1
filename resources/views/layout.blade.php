@@ -4,7 +4,7 @@
 <div class="header-top">
 <div class="header-resort"><button class="menu-toggle" aria-label="Open all pages" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span></button><a class="resort-name" href="{{ route('home') }}">Wilpattu Park</a></div>
 <a class="header-logo" href="{{ route('home') }}" aria-label="Wilpattu Park home"><span>WILPATTU PARK</span></a>
-<a class="button header-book" href="{{ config('park.booking_url') ?: route('page', 'contact') }}">Book now</a>
+<a class="button header-book" href="{{ route('booking.create') }}">Book now</a>
 </div>
 <nav class="header-navigation" aria-label="Main navigation"><a href="{{ route('home') }}">Home</a><a href="{{ route('page', 'stay') }}">Villas</a><a href="{{ route('page', 'offers') }}">Offers</a><a href="{{ route('page', 'wildlife') }}">Destination</a><a href="{{ route('page', 'experiences') }}">Experiences</a><a href="{{ route('page', 'gallery') }}">Gallery</a><a href="{{ route('page', 'contact') }}">Contact us</a></nav>
 </header>

@@ -111,7 +111,7 @@
 @media(max-width:550px){.resort-footer-main{width:calc(100% - 44px);padding:45px 0;gap:34px 20px}.resort-footer-logo{font-size:25px}.resort-footer-navigation{gap:16px}.resort-footer-navigation a{font-size:11px}.resort-footer-contact address{font-size:12px;gap:18px}.resort-footer-newsletter>label{font-size:23px}.resort-footer-newsletter{max-width:none}.resort-footer-bottom{padding:20px 22px;font-size:10px}.resort-footer-bottom>span,.resort-footer-bottom>nav{width:100%}.resort-footer-bottom nav a+a:before{margin-inline:9px}}
 
 /* Keep the feature row below the reservation form in document flow. */
-.wildlife-journey .hero-content{padding-bottom:32px}
+.wildlife-journey .hero-content{padding-bottom:100px}
 .hero-details{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px 30px;margin-top:24px}
 .wildlife-journey .hero-details .hero-strip{position:static;display:flex;flex-wrap:wrap;gap:12px 28px;opacity:1;transform:none}
 .wildlife-journey .hero-details .scroll-note{position:static;display:block;margin-left:auto;white-space:nowrap;opacity:1;transform:none}
