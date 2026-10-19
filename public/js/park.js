@@ -14,7 +14,7 @@ document.addEventListener('keydown', (event) => {
 const filters=document.querySelectorAll('[data-filter]');filters.forEach(b=>b.addEventListener('click',()=>{filters.forEach(f=>f.setAttribute('aria-pressed',String(f===b)));document.querySelectorAll('[data-category]').forEach(i=>i.hidden=b.dataset.filter!=='All'&&i.dataset.category!==b.dataset.filter);}));const dialog=document.querySelector('#lightbox');document.querySelectorAll('.gallery-item').forEach(b=>b.addEventListener('click',()=>{const img=b.querySelector('img');document.querySelector('#lightbox-image').src=img.src;document.querySelector('#lightbox-image').alt=img.alt;document.querySelector('#lightbox-caption').textContent=b.dataset.caption;dialog.showModal();}));document.querySelector('.lightbox-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});const arrival=document.querySelector('[name="arrival"]');const departure=document.querySelector('[name="departure"]');if(arrival && departure){const updateDeparture=()=>{if(!arrival.value){return;}const nextDay=new Date(arrival.value+'T12:00:00Z');nextDay.setUTCDate(nextDay.getUTCDate()+1);departure.min=nextDay.toISOString().slice(0,10);if(departure.value && departure.value<=arrival.value){departure.value=departure.min;}};arrival.addEventListener('change',updateDeparture);updateDeparture();}
 
 const wildlifeJourney = document.querySelector('[data-wildlife-journey]');
-if (wildlifeJourney && !document.body.classList.contains('botanical-theme')) {
+if (wildlifeJourney) {
     const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
     const hero = wildlifeJourney.querySelector('.hero');
     const discovery = wildlifeJourney.querySelector('.discover');
@@ -93,6 +93,9 @@ if (wildlifeJourney && !document.body.classList.contains('botanical-theme')) {
         wildlifeJourney.style.setProperty('--copy-offset', `${-progress * 80}px`);
         wildlifeJourney.style.setProperty('--discover-opacity', progress >= 0.23 ? '1' : '0');
         wildlifeJourney.style.setProperty('--discovery-background', backgroundReveal.toFixed(4));
+        const titleColorProgress = ease(clamp((backgroundReveal - 0.45) / 0.45));
+        const titleColor = [32, 60, 45].map((channel) => Math.round(255 + (channel - 255) * titleColorProgress));
+        discoveryTitle.style.setProperty('--discovery-title-color', `rgb(${titleColor.join(', ')})`);
         wildlifeJourney.style.setProperty('--scene-opacity', (1 - backgroundReveal).toFixed(4));
         const stageBounds = wildlifeJourney.querySelector('.wildlife-stage').getBoundingClientRect();
         const headingOffset = (window.innerHeight * 0.44 - titleLayout.center) * (1 - backgroundReveal);

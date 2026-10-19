@@ -4,3 +4,13 @@
 @media(max-width:750px){.reservation-grid{grid-template-columns:1fr}.reservation-summary{position:static}.reservation-search{grid-template-columns:1fr 1fr}.reservation-steps{gap:15px}.reservation-steps li{font-size:10px}.reservation-results-heading{align-items:flex-start;flex-direction:column}.reservation-page{padding-top:30px}.reservation-details .form-grid{grid-template-columns:1fr}}
 @media(max-width:420px){.reservation-room{grid-template-columns:1fr}.reservation-room>img{height:180px;min-height:0}.reservation-room-price{grid-template-columns:1fr}.reservation-room-price>label{grid-column:1;grid-row:auto}.reservation-summary,.reservation-details,.reservation-confirmation{padding:20px}.reservation-line{flex-direction:column}}
 @media print{.resort-header,.closing,.resort-footer,.whatsapp,.reservation-confirm-actions,.reservation-steps{display:none!important}.reservation-page{width:100%;padding:0}.reservation-confirmation{background:white;color:black;border:0}.reservation-total strong,.reservation-reference{color:black;background:white}}
+
+/* Match reservations to the public site's white theme. */
+.reservation-search,.reservation-summary,.reservation-details,.reservation-confirmation{background:var(--surface)}
+.reservation-room{background:#fff}.reservation-reference{background:#eaf0e9}
+.reservation-steps li,.reservation-room-price>small,.reservation-line small{color:var(--muted)}
+.reservation-pill{background:#eaf0e9;color:#2d5538}
+@media(min-width:851px){.reservation-page{padding-top:55px}}
+.reservation-search,.reservation-summary,.reservation-details,.reservation-confirmation{background-color:#f8f5ed;background-image:var(--paper-grain),var(--paper-texture),var(--paper-wash);box-shadow:0 8px 28px #203c2908;border-color:#87673330}
+.reservation-room{background-image:var(--paper-texture);box-shadow:0 8px 24px #203c2908}
+@media print{.reservation-confirmation,.reservation-room{background-image:none;box-shadow:none}}

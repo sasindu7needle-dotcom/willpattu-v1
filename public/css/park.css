@@ -126,3 +126,99 @@
     .is-animated .hero-booking{flex-shrink:0;margin-top:auto}
     .is-animated .hero-details{flex-shrink:0}
 }
+
+/* White surfaces and forest tones complement the wildlife photography. */
+:root{--muted:#626c65;--line:#203c2926;--gold:#876733;--ink:#203c2d;--surface:#f6f8f5}
+body{background:#fff;color:var(--ink)}
+.gold{background:var(--forest);color:#fff}.gold:hover,.green:hover{background:#2e4c39;color:#fff}.text-link:hover{color:var(--forest)}
+.resort-header{position:relative;background:#fff;color:var(--ink)}.header-top{border-color:var(--line)}.resort-header .menu-toggle{color:var(--ink)}.resort-header .header-book{background:var(--forest);color:#fff}.resort-header .header-book:hover{background:#2e4c39}
+.site-menu{background:#fff;box-shadow:0 16px 35px #203c2912}.site-menu a{color:var(--ink)}
+.hero,.page-hero{color:#fff}.hero .eyebrow,.hero .scroll-note,.hero .card-symbol{color:#e2c68e}.hero-note p{color:#fff}
+.hero-shade{background:linear-gradient(90deg,#0c1715cc,#0d19164d 45%,transparent 80%),linear-gradient(0deg,#13221899,transparent 45%)}
+.page-hero .hero-shade{background:linear-gradient(90deg,#0b1715d9,#0d191675 65%,#0d191630)}.breadcrumb{color:#edece4}
+.is-animated .wildlife-stage{background:#fff}.is-animated .discover{background:rgba(255,255,255,var(--discovery-background,0))}.is-animated .discover h2{color:var(--ink);-webkit-text-fill-color:var(--ink)}.is-animated .discovery-letter{color:var(--ink);text-shadow:none}
+.discovery-card{color:#fff;border-color:var(--line);box-shadow:0 8px 24px #203c2910}.discovery-card .card-symbol{color:#e2c68e}
+.planning{background:var(--surface);border:1px solid var(--line)}.story,.content-card,.contact-grid form,.gallery-item{background:#fff;border-color:var(--line);box-shadow:0 8px 28px #203c2908}.story{background:var(--surface)}
+.muted,.source-note{color:var(--muted)}label{color:var(--ink)}input,select,textarea{background:#fff;color:var(--ink);border-color:#bfcac1;color-scheme:light}input::placeholder,textarea::placeholder{color:#707b72}
+.success{background:#eaf4ec;color:#234d31}.error{background:#fff0eb;color:#863e2c}
+.gallery-filters button,.gallery-item{color:var(--ink)}.gallery-filters button[aria-pressed=true]{background:var(--forest);color:#fff}dialog{background:#fff;color:var(--ink)}
+.closing{background:var(--surface)}.resort-footer{background:#fff;color:var(--ink);border-top:1px solid var(--line)}.resort-footer-newsletter>label{color:var(--ink)}.resort-footer-newsletter-field input{background:var(--surface);border:1px solid var(--line)}.resort-footer-newsletter-field button{background:var(--forest);color:#fff}.resort-footer-bottom{background:var(--surface);border-top:1px solid var(--line);color:var(--muted)}.resort-footer-bottom nav a+a:before{color:#aab5ac}.whatsapp{color:#fff}
+@media(min-width:851px){.wildlife-journey .hero-content{padding-top:65px}.page-hero{height:430px}.page-hero .container{padding-top:35px}}
+@media(min-width:851px) and (max-height:850px){.wildlife-journey .hero-content{padding-top:45px}}
+
+/* Fine paper fibres and soft botanical tones on the white surfaces. */
+:root{
+    --paper-texture:repeating-linear-gradient(98deg,#87673305 0 1px,transparent 1px 7px),repeating-linear-gradient(8deg,#203c2904 0 1px,transparent 1px 5px);
+    --paper-wash:radial-gradient(ellipse at 0 0,#dce5d44d,transparent 58%),radial-gradient(ellipse at 100% 100%,#eee2ce45,transparent 60%);
+    --paper-grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='.17'/%3E%3C/feComponentTransfer%3E%3Cfilter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.85'/%3E%3C/svg%3E");
+}
+body{background-color:#fff;background-image:var(--paper-texture)}
+.resort-header,.site-menu,.resort-footer{background-image:var(--paper-texture)}
+.resort-header{box-shadow:0 4px 24px #203c2906}
+.planning,.story,.closing,.resort-footer-bottom{background-color:#fafbf8;background-image:var(--paper-texture),var(--paper-wash)}
+.planning,.story{border-color:#87673330;box-shadow:0 12px 36px #203c2908}
+.planning{padding:34px;border-radius:12px}
+.story{border-radius:12px}
+.story>div{background-image:radial-gradient(ellipse at top right,#dce5d44d,transparent 70%)}
+.planning,.story>div,.closing,.contact-grid form{background-color:#f8f5ed;background-image:var(--paper-grain),var(--paper-texture),var(--paper-wash)}
+.planning,.story{border-color:#a892654d;box-shadow:0 14px 36px #45391e0d,inset 0 0 35px #bfa7750d}
+.closing{border-color:#87673326}
+.section-heading h2 em,.planning h2 em,.story h2 em{color:#6b7852}
+.section-heading .eyebrow{margin-bottom:12px}
+.ornament{letter-spacing:2px}
+.content-card,.gallery-item,.contact-grid form{background-image:var(--paper-texture);border-radius:10px}
+.content-card,.gallery-item,.editorial-card img{box-shadow:0 8px 24px #203c290c}
+.discovery-card{border-radius:10px;border-color:#ffffff66;box-shadow:0 12px 28px #203c291a}
+.editorial-card img{border-radius:9px}
+.editorial-card h3{margin-bottom:16px}
+.text-link{padding-bottom:8px;border-color:#87673366}
+.button,.booking-submit{border-radius:3px;box-shadow:0 4px 12px #10201712}
+.hero-booking{border:1px solid #ffffff80;box-shadow:0 12px 40px #10201726;border-radius:6px}
+input,select,textarea{transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{border-color:#6b7852;box-shadow:0 0 0 3px #6b785212}
+.resort-footer-main{border-top:3px double #87673326}
+@media(hover:hover){.content-card,.gallery-item{transition:box-shadow .25s}.content-card:hover,.gallery-item:hover{box-shadow:0 14px 36px #203c2914}}
+@media(max-width:550px){.planning{padding:24px}.story>div{padding:28px}.section-heading .eyebrow{margin-bottom:8px}}
+@media print{body,.planning,.story,.closing,.content-card,.gallery-item{background-image:none;box-shadow:none}}
+
+/* Botanical accents frame the homepage's editorial panels. */
+:root{--paper-texture:none;--paper-grain:none;--paper-wash:none;--botanical-texture:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='380' viewBox='-16 -24 272 440'%3E%3Cg fill='none' stroke='%235b7050' stroke-width='1.7'%3E%3Cpath d='M210 390C120 280 182 155 62-10'/%3E%3Cpath d='M174 328C95 326 53 287 44 245C109 249 157 282 174 328ZM157 271C201 226 216 178 205 144C163 178 146 221 157 271ZM150 211C82 207 45 175 28 131C94 133 133 163 150 211ZM125 150C165 108 174 64 157 28C121 65 113 109 125 150ZM91 86C45 82 12 51 4 13C47 19 79 46 91 86Z' fill='%239aab83' fill-opacity='.22'/%3E%3Cpath d='M174 328 44 245M157 271 205 144M150 211 28 131M125 150 157 28M91 86 4 13' stroke-opacity='.55'/%3E%3C/g%3E%3C/svg%3E")}
+body,.resort-header,.site-menu,.resort-footer{background-image:none}
+.planning{position:relative;isolation:isolate;overflow:hidden;background:#f0f3e9;border-color:#b9c4a6;padding:42px}
+.planning:before,.story>div:before{content:'';position:absolute;z-index:-1;pointer-events:none;top:0;bottom:0;right:0;width:240px;background:var(--botanical-texture) right center/240px 380px no-repeat;opacity:.65}
+.planning:before{right:24%;opacity:.42;transform:rotate(-16deg)}
+.planning-copy,.planning-features,.planning>img{position:relative}
+.planning-copy{padding-right:18px}
+.story>div{position:relative;isolation:isolate;overflow:hidden;background:#f8f5ec;padding-right:80px}
+.story>div:before{right:-45px;opacity:.65;transform:scaleX(-1)}
+.story>div p{position:relative;max-width:340px}
+.journal-section .section-heading{position:relative;padding-block:24px;overflow:hidden}
+.journal-section .section-heading:before,.journal-section .section-heading:after{content:'';position:absolute;pointer-events:none;top:0;bottom:0;width:110px;background:var(--botanical-texture) center/110px auto no-repeat;opacity:.6}
+.journal-section .section-heading:before{left:3%;transform:rotate(-25deg)}
+.journal-section .section-heading:after{right:3%;transform:scaleX(-1) rotate(-25deg)}
+@media(max-width:850px){.planning:before{right:-30px}.story>div{padding-right:42px}.journal-section .section-heading:before,.journal-section .section-heading:after{width:65px;background-size:80px;opacity:.35}}
+@media(max-width:550px){.planning{padding:28px}.planning:before{right:-75px;opacity:.45}.planning-copy{padding-right:0}.story>div{padding:30px}.story>div:before{right:-85px;opacity:.45}.journal-section .section-heading:before{left:-5px}.journal-section .section-heading:after{right:-5px}.journal-section .section-heading h2{position:relative;z-index:1}}
+@media print{.planning:before,.story>div:before,.journal-section .section-heading:before,.journal-section .section-heading:after{display:none}}
+
+/* Two botanical accents stay in the margins across the public site. */
+main#main{
+    background-color:#fff;
+    background-image:linear-gradient(90deg,#fff 0%,#ffffff66 3%,#fff 16%,#fff 84%,#ffffff66 97%,#fff 100%),var(--botanical-texture),var(--botanical-texture);
+    background-position:center,left -85px top 500px,right -85px bottom 100px;
+    background-size:100% 100%,240px 380px,240px 380px;
+    background-repeat:no-repeat;
+}
+main#main:has(.wildlife-journey){background-position:center,left -85px bottom 700px,right -85px bottom 420px}
+main#main:has(.reservation-page){background-position:center,left -85px top 60px,right -85px bottom 80px}
+.planning:before,.story>div:before,.journal-section .section-heading:before,.journal-section .section-heading:after{display:none}
+@media(max-width:850px){
+    main#main{background-image:linear-gradient(90deg,#fff 0%,#ffffff66 4%,#fff 28%,#fff 72%,#ffffff66 96%,#fff 100%),var(--botanical-texture),var(--botanical-texture);background-size:100% 100%,155px 245px,155px 245px;background-position:center,left -55px top 460px,right -55px bottom 80px}
+    main#main:has(.wildlife-journey){background-position:center,left -55px bottom 1150px,right -55px bottom 1030px}
+    main#main:has(.reservation-page){background-position:center,left -55px top 40px,right -55px bottom 80px}
+}
+@media print{main#main{background-image:none}}
+
+/* White over the wildlife scene, forest green once the white panel arrives. */
+.is-animated .discover h2{color:var(--discovery-title-color,var(--ink));-webkit-text-fill-color:currentColor}
+.is-animated .discover h2 em,.is-animated .discovery-letter{color:inherit;-webkit-text-fill-color:currentColor}
+@media(prefers-reduced-motion:reduce){.is-animated .discover h2{color:var(--ink);-webkit-text-fill-color:currentColor}}
