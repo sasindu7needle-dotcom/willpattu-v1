@@ -27,4 +27,4 @@ For Laragon, set the virtual host document root to this project's `public` direc
 
 `php artisan test --compact` runs page rendering, enquiry persistence, validation and rate-limit tests using an isolated SQLite in-memory database. Runtime storage uses MySQL. Browser smoke checks in `tests/Browser/park_smoke.py` require Python Playwright and Chromium and expect the local server on port 8765.
 
-Design references: supplied UI image (green/gold safari layout) and second image (serif heading style, approximated using Cormorant Garamond). Content source: https://www.makararesorts.lk/kalpitiya-excursions-2/wilpattu-national-park.html. Contacts: https://www.makararesorts.lk/contact-us.html.
+Design references: supplied UI image (green/gold safari layout) and second image (serif heading style, approximated using Cormorant Garamond). Content source: https://www.makararesorts.lk/dolphin-beach-resort/offers/wilpattu-adventure. Contacts: https://www.makararesorts.lk/dolphin-beach-resort/contact-us.

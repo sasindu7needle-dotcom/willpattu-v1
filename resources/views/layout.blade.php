@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="@yield('description', 'Discover Wilpattu with Makara Resorts. Explore wildlife, safari experiences and thoughtful escapes into nature.')"><title>@yield('title', 'Wilpattu Park') · Makara Resorts</title><link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="{{ asset('css/park.css') }}"><script defer src="{{ asset('js/park.js') }}"></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="@yield('description', 'Discover Wilpattu with Dolphin Beach Resort, Kalpitiya. Explore wildlife, safari experiences and thoughtful escapes into nature.')"><title>@yield('title', 'Wilpattu Park') · Dolphin Beach Resort</title><link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="{{ asset('css/park.css') }}"><script defer src="{{ asset('js/park.js') }}"></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header class="resort-header">
 <div class="header-top">
 <div class="header-resort"><button class="menu-toggle" aria-label="Open all pages" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span></button><a class="resort-name" href="{{ route('home') }}">Wilpattu Park</a></div>
 <a class="header-logo" href="{{ route('home') }}" aria-label="Wilpattu Park home"><span>WILPATTU PARK</span></a>
 <a class="button header-book" href="{{ route('booking.create') }}">Book now</a>
 </div>
-<nav class="header-navigation" aria-label="Main navigation"><a href="{{ route('home') }}">Home</a><a href="{{ route('page', 'stay') }}">Villas</a><a href="{{ route('page', 'offers') }}">Offers</a><a href="{{ route('page', 'wildlife') }}">Destination</a><a href="{{ route('page', 'experiences') }}">Experiences</a><a href="{{ route('page', 'gallery') }}">Gallery</a><a href="{{ route('page', 'contact') }}">Contact us</a></nav>
+<nav class="header-navigation" aria-label="Main navigation"><a href="{{ route('home') }}">Home</a><a href="{{ route('page', 'stay') }}">Accommodation</a><a href="{{ route('page', 'offers') }}">Offers</a><a href="{{ route('page', 'wildlife') }}">Destination</a><a href="{{ route('page', 'experiences') }}">Experiences</a><a href="{{ route('page', 'gallery') }}">Gallery</a><a href="{{ route('page', 'contact') }}">Contact us</a></nav>
 </header>
 <div class="site-menu" id="site-menu" hidden><nav aria-label="All pages">@foreach(config('content.pages') as $key=>$entry)<a href="{{ route('page',$key) }}">{{ $entry['kicker'] }}</a>@endforeach</nav></div>
 <main id="main">@yield('content')</main>
@@ -14,7 +14,7 @@
 <footer class="resort-footer" aria-label="Site footer">
     <div class="resort-footer-main">
         <div class="resort-footer-brand">
-            <a class="resort-footer-logo" href="{{ route('home') }}" aria-label="Wilpattu Park home">WILPATTU PARK<span>MAKARA RESORTS</span></a>
+            <a class="resort-footer-logo" href="{{ route('home') }}" aria-label="Wilpattu Park home">WILPATTU PARK<span>DOLPHIN BEACH RESORT</span></a>
             @if(collect(config('park.social_links'))->filter()->isNotEmpty())
                 <div class="resort-footer-socials" aria-label="Follow us">
                     @foreach(config('park.social_links') as $network => $url)
@@ -27,7 +27,7 @@
         </div>
         <nav class="resort-footer-navigation" aria-label="Explore Wilpattu Park">
             <a href="{{ route('home') }}">Home</a>
-            <a href="{{ route('page', 'stay') }}">Villas</a>
+            <a href="{{ route('page', 'stay') }}">Accommodation</a>
             <a href="{{ route('page', 'offers') }}">Offers</a>
             <a href="{{ route('page', 'wildlife') }}">Destination</a>
             <a href="{{ route('page', 'experiences') }}">Experiences</a>

@@ -188,7 +188,7 @@ if (wildlifeJourney) {
         const morphCanvas = document.createElement('canvas');
         morphCanvas.width = 192;
         morphCanvas.height = 148;
-        const morphContext = morphCanvas.getContext('2d');
+        const morphContext = morphCanvas.getContext('2d', { willReadFrequently: true });
         const morphPixels = morphContext.createImageData(192, 148);
         let morphFrames = [];
         let motionFields = [];
@@ -329,6 +329,9 @@ if (wildlifeJourney) {
             }
             const width = hero.clientWidth;
             const height = hero.clientHeight;
+            if (!width || !height) {
+                return;
+            }
             livingScene.width = sceneBase.width = width;
             livingScene.height = sceneBase.height = height;
             const scale = Math.max(width / leopard.naturalWidth, height / leopard.naturalHeight);
@@ -404,7 +407,7 @@ if (wildlifeJourney) {
         new IntersectionObserver((entries) => { sceneVisible = entries[0].isIntersecting; }).observe(hero);
         glanceFrames.forEach((frame) => frame.addEventListener('load', prepareHeadPatches));
         leopard.addEventListener('load', prepareLivingScene);
-        window.addEventListener('resize', prepareLivingScene);
+        new ResizeObserver(prepareLivingScene).observe(hero);
         motionPreference.addEventListener('change', prepareLivingScene);
         prepareLivingScene();
         window.requestAnimationFrame(breathe);

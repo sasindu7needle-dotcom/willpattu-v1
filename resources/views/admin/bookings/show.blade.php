@@ -2,7 +2,7 @@
 @section('title', 'Booking '.$booking->reference)
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/admin-bookings.css') }}">
-<section class="editor-heading"><div><a class="admin-breadcrumb" href="{{ route('admin.bookings.index') }}">Bookings / {{ $booking->reference }}</a><span class="admin-eyebrow">{{ strtoupper($booking->status) }}</span><h1>{{ $booking->name }}</h1><p>Makara Resorts · Booked {{ $booking->created_at }}</p></div><a class="outline-button" href="{{ route('admin.bookings.index') }}">All bookings →</a></section>
+<section class="editor-heading"><div><a class="admin-breadcrumb" href="{{ route('admin.bookings.index') }}">Bookings / {{ $booking->reference }}</a><span class="admin-eyebrow">{{ strtoupper($booking->status) }}</span><h1>{{ $booking->name }}</h1><p>Dolphin Beach Resort · Booked {{ $booking->created_at }}</p></div><a class="outline-button" href="{{ route('admin.bookings.index') }}">All bookings →</a></section>
 @include('admin.bookings.notices')
 <div class="booking-admin-details">
 <section class="editor-panel"><div class="editor-panel-heading"><h2>Guest & stay</h2></div><dl><dt>Email</dt><dd><a href="mailto:{{ $booking->email }}">{{ $booking->email }}</a></dd><dt>Phone</dt><dd>{{ $booking->phone }}</dd><dt>Check-in / Check-out</dt><dd>{{ $booking->arrival }} → {{ $booking->departure }}</dd><dt>Guests</dt><dd>{{ $booking->adults }} adults · {{ $booking->children }} children</dd><dt>Nationality</dt><dd>{{ $booking->nationality }}</dd><dt>Special requests</dt><dd class="booking-admin-request">{{ $booking->requests ?: 'None provided' }}</dd><dt>Consent recorded</dt><dd>{{ $booking->consented_at }}</dd></dl></section>

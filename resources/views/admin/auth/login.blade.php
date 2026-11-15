@@ -18,7 +18,7 @@
             <div class="login-visual-shade"></div>
             <a class="admin-brand" href="{{ route('home') }}">
                 <span class="admin-crest">❧</span>
-                <span>WILPATTU PARK<small>MAKARA RESORTS</small></span>
+                <span>WILPATTU PARK<small>DOLPHIN BEACH RESORT</small></span>
             </a>
             <div class="login-visual-copy">
                 <span class="admin-eyebrow">THE WILDERNESS, THOUGHTFULLY CURATED</span>

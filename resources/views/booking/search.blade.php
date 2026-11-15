@@ -4,14 +4,14 @@
 <link rel="stylesheet" href="{{ asset('css/booking.css') }}">
 <script defer src="{{ asset('js/booking.js') }}"></script>
 <section class="reservation-page container">
-    <span class="eyebrow">MAKARA RESORTS · WILPATTU</span>
+    <span class="eyebrow">DOLPHIN BEACH RESORT · WILPATTU</span>
     <h1>Find your <em>escape.</em></h1>
     <p class="reservation-lead">Choose your dates. Find your room. Make time for the wild.</p>
     <ol class="reservation-steps"><li aria-current="step">1 · Choose rooms</li><li>2 · Your details</li><li>3 · Confirmation</li></ol>
     @include('booking.errors')
     <form class="reservation-search" method="GET" action="{{ route('booking.search') }}">
         <input type="hidden" name="property" value="makara">
-        <label>Property<select aria-label="Property"><option>Makara Resorts</option></select></label>
+        <label>Property<select aria-label="Property"><option>Dolphin Beach Resort</option></select></label>
         <label>Check-in<input type="date" name="arrival" min="{{ now('Asia/Colombo')->toDateString() }}" value="{{ old('arrival', $search['arrival'] ?? '') }}" required></label>
         <label>Check-out<input type="date" name="departure" min="{{ now('Asia/Colombo')->toDateString() }}" value="{{ old('departure', $search['departure'] ?? '') }}" required></label>
         <label>Nationality<select name="nationality" required>@foreach(['Sri Lankan', 'International'] as $nationality)<option @selected(old('nationality', $search['nationality'] ?? 'Sri Lankan') === $nationality)>{{ $nationality }}</option>@endforeach</select></label>
@@ -29,7 +29,7 @@
                     @forelse($rooms as $room)
                         <article class="reservation-room">
                             <img src="{{ asset('images/page-stay-villas.webp') }}" alt="Wilpattu accommodation" loading="lazy">
-                            <div class="reservation-room-copy"><span class="eyebrow">MAKARA RESORTS</span><h3>{{ $room->name }}</h3><p>{{ $room->description }}</p><p class="reservation-room-meta">Up to {{ $room->capacity }} guests per room · Children count toward capacity</p><span class="reservation-pill">{{ $room->available > 0 ? $room->available.' available for your dates' : 'Sold out for these dates' }}</span><p class="reservation-policy">Pay at the property · Room-only rate · Final price includes applicable room taxes</p></div>
+                            <div class="reservation-room-copy"><span class="eyebrow">DOLPHIN BEACH RESORT</span><h3>{{ $room->name }}</h3><p>{{ $room->description }}</p><p class="reservation-room-meta">Up to {{ $room->capacity }} guests per room · Children count toward capacity</p><span class="reservation-pill">{{ $room->available > 0 ? $room->available.' available for your dates' : 'Sold out for these dates' }}</span><p class="reservation-policy">Pay at the property · Room-only rate · Final price includes applicable room taxes</p></div>
                             <div class="reservation-room-price"><strong>LKR {{ number_format($room->nightly_rate, 2) }}</strong><small>per room / night</small><p>LKR {{ number_format($room->nightly_rate * $nights, 2) }} for {{ $nights }} nights</p>
                             <label>Number of rooms<select name="rooms[{{ $room->id }}]" data-room-quantity data-rate="{{ (int) round($room->nightly_rate * 100) }}" data-capacity="{{ $room->capacity }}" @disabled($room->available === 0)>@for($quantity = 0; $quantity <= $room->available; $quantity++)<option value="{{ $quantity }}" @selected((int) old('rooms.'.$room->id, 0) === $quantity)>{{ $quantity }}</option>@endfor</select></label></div>
                         </article>

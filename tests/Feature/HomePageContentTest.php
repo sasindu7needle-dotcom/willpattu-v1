@@ -50,7 +50,8 @@ class HomePageContentTest extends TestCase
             ->assertSee('RETURN TO THE')
             ->assertSee('WILD')
             ->assertSee('BEGIN YOUR WILPATTU STORY')
-            ->assertSee('wilpattu-forest-plate.png')
+            ->assertSee('Makara_resorts_alankuda_beach_excursion_wilpattu_6.jpg')
+            ->assertSee('data-living-animation="true"', false)
             ->assertSee('data-wildlife-journey', false);
     }
 

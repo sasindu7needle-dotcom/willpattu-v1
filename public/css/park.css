@@ -184,12 +184,12 @@ input:focus,select:focus,textarea:focus{border-color:#6b7852;box-shadow:0 0 0 3p
 /* Botanical accents frame the homepage's editorial panels. */
 :root{--paper-texture:none;--paper-grain:none;--paper-wash:none;--botanical-texture:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='380' viewBox='-16 -24 272 440'%3E%3Cg fill='none' stroke='%235b7050' stroke-width='1.7'%3E%3Cpath d='M210 390C120 280 182 155 62-10'/%3E%3Cpath d='M174 328C95 326 53 287 44 245C109 249 157 282 174 328ZM157 271C201 226 216 178 205 144C163 178 146 221 157 271ZM150 211C82 207 45 175 28 131C94 133 133 163 150 211ZM125 150C165 108 174 64 157 28C121 65 113 109 125 150ZM91 86C45 82 12 51 4 13C47 19 79 46 91 86Z' fill='%239aab83' fill-opacity='.22'/%3E%3Cpath d='M174 328 44 245M157 271 205 144M150 211 28 131M125 150 157 28M91 86 4 13' stroke-opacity='.55'/%3E%3C/g%3E%3C/svg%3E")}
 body,.resort-header,.site-menu,.resort-footer{background-image:none}
-.planning{position:relative;isolation:isolate;overflow:hidden;background:#f0f3e9;border-color:#b9c4a6;padding:42px}
+.planning{position:relative;isolation:isolate;overflow:hidden;background:#d0b89e;border-color:#b89f82;padding:42px}
 .planning:before,.story>div:before{content:'';position:absolute;z-index:-1;pointer-events:none;top:0;bottom:0;right:0;width:240px;background:var(--botanical-texture) right center/240px 380px no-repeat;opacity:.65}
 .planning:before{right:24%;opacity:.42;transform:rotate(-16deg)}
 .planning-copy,.planning-features,.planning>img{position:relative}
 .planning-copy{padding-right:18px}
-.story>div{position:relative;isolation:isolate;overflow:hidden;background:#f8f5ec;padding-right:80px}
+.story>div{position:relative;isolation:isolate;overflow:hidden;background:#d0b89e;padding-right:80px}
 .story>div:before{right:-45px;opacity:.65;transform:scaleX(-1)}
 .story>div p{position:relative;max-width:340px}
 .journal-section .section-heading{position:relative;padding-block:24px;overflow:hidden}
@@ -222,3 +222,6 @@ main#main:has(.reservation-page){background-position:center,left -85px top 60px,
 .is-animated .discover h2{color:var(--discovery-title-color,var(--ink));-webkit-text-fill-color:currentColor}
 .is-animated .discover h2 em,.is-animated .discovery-letter{color:inherit;-webkit-text-fill-color:currentColor}
 @media(prefers-reduced-motion:reduce){.is-animated .discover h2{color:var(--ink);-webkit-text-fill-color:currentColor}}
+.planning .planning-copy .eyebrow,.story>div .eyebrow,.story>div .text-link{color:#5a4320}
+.planning .planning-copy p,.story>div p{color:#3f4a40}
+.planning h2 em,.story>div h2 em{color:#4f5c3a}

@@ -252,7 +252,7 @@ return json_decode(<<<'CONTENT'
             "items": [
                 {
                     "title": "When to go",
-                    "text": "The Makara guide recommends February to October. Rainfall varies; check local conditions and safari availability before travelling.",
+                    "text": "The source guide recommends February to October. Rainfall varies; check local conditions and safari availability before travelling.",
                     "meta": "Seasons",
                     "image": 1
                 },
@@ -302,7 +302,7 @@ return json_decode(<<<'CONTENT'
                 },
                 {
                     "title": "From Kalpitiya",
-                    "text": "Travel via Puttalam towards the park. The source guide estimates about one hour from Makara resorts, excluding delays.",
+                    "text": "Travel via Puttalam towards the park. The source guide estimates about one hour from Dolphin Beach Resort, excluding delays.",
                     "meta": "Approximate driving time",
                     "image": 1
                 },
@@ -317,7 +317,7 @@ return json_decode(<<<'CONTENT'
         "about": {
             "title": "Wild by nature. Luxury by choice.",
             "kicker": "ABOUT WILPATTU PARK",
-            "intro": "A nature-led escape inspired by Wilpattu and the hospitality of Makara Resorts.",
+            "intro": "A nature-led escape inspired by Wilpattu and the hospitality of Dolphin Beach Resort, Kalpitiya.",
             "image": 13,
             "items": [
                 {
@@ -327,8 +327,8 @@ return json_decode(<<<'CONTENT'
                     "image": 13
                 },
                 {
-                    "title": "The Makara connection",
-                    "text": "Discover Wilpattu as part of your Sri Lankan journey with Makara Resorts. Our enquiry team can help coordinate the next steps.",
+                    "title": "The Dolphin Beach connection",
+                    "text": "Discover Wilpattu as part of your Sri Lankan journey with Dolphin Beach Resort. Our enquiry team can help coordinate the next steps.",
                     "meta": "",
                     "image": 13
                 },
@@ -375,7 +375,7 @@ return json_decode(<<<'CONTENT'
         "gallery": {
             "title": "Moments from the wild.",
             "kicker": "GALLERY",
-            "intro": "Explore wildlife, safari trails and natural landscapes photographed for the Makara Wilpattu guide.",
+            "intro": "Explore wildlife, safari trails and natural landscapes photographed on Wilpattu safaris from Dolphin Beach Resort.",
             "image": 6,
             "items": [
                 {"title": "Leopard on a forest trail", "text": "A Sri Lankan leopard moving through the forest landscape.", "meta": "Wildlife", "image": 6},
@@ -509,7 +509,7 @@ return json_decode(<<<'CONTENT'
                 "eyebrow": "LET'S MAKE IT HAPPEN",
                 "heading": "Tell us about\nyour journey.",
                 "supporting_text": "Have dates in mind, a safari question or a special occasion? Leave a message and your preferred contact details.",
-                "reservations_label": "MAKARA RESORTS RESERVATIONS",
+                "reservations_label": "DOLPHIN BEACH RESORT RESERVATIONS",
                 "availability_note": "Enquiries are subject to availability. Your quotation will confirm rates, inclusions and cancellation terms.",
                 "submission_note": "Submitting this form does not confirm a reservation."
             },
