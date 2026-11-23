@@ -49,7 +49,21 @@ if (wildlifeJourney) {
     let renderedProgress = null;
     let previousFrameTime = 0;
     let titleLayout = null;
+    let journeyTail = 0;
+    const discoveryGrid = discovery.querySelector('.discovery-grid');
+    const measureJourneyTail = () => {
+        if (motionPreference.matches) {
+            journeyTail = 0;
+        } else {
+            const stageBottom = wildlifeJourney.querySelector('.wildlife-stage').getBoundingClientRect().bottom;
+            const sectionGap = window.innerWidth <= 550 ? 28 : 45;
+            journeyTail = Math.max(0, Math.round(stageBottom - discoveryGrid.getBoundingClientRect().bottom - sectionGap));
+        }
+        wildlifeJourney.style.setProperty('--journey-tail', `${journeyTail}px`);
+    };
+    const journeyEnd = () => window.scrollY + wildlifeJourney.getBoundingClientRect().top + wildlifeJourney.offsetHeight - window.innerHeight - journeyTail;
     const measureTitle = () => {
+        measureJourneyTail();
         wildlifeJourney.style.setProperty('--heading-offset', '0px');
         titleLetters.forEach((letter) => { letter.style.transform = 'none'; });
         const stageBounds = wildlifeJourney.querySelector('.wildlife-stage').getBoundingClientRect();
@@ -70,7 +84,7 @@ if (wildlifeJourney) {
             return;
         }
         const bounds = wildlifeJourney.getBoundingClientRect();
-        const targetProgress = clamp(-bounds.top / Math.max(1, bounds.height - window.innerHeight));
+        const targetProgress = clamp(-bounds.top / Math.max(1, bounds.height - window.innerHeight - journeyTail));
         const elapsed = Math.min(50, timestamp - previousFrameTime || 16);
         previousFrameTime = timestamp;
         renderedProgress = renderedProgress === null ? targetProgress : renderedProgress + (targetProgress - renderedProgress) * (1 - Math.exp(-elapsed / 65));
@@ -157,13 +171,11 @@ if (wildlifeJourney) {
             return;
         }
         event.preventDefault();
-        const top = window.scrollY + wildlifeJourney.getBoundingClientRect().top;
-        window.scrollTo({ top: top + wildlifeJourney.offsetHeight - window.innerHeight, behavior: 'smooth' });
+        window.scrollTo({ top: journeyEnd(), behavior: 'smooth' });
     });
     discovery.addEventListener('focusin', () => {
         if (!motionPreference.matches && !discovery.classList.contains('is-revealed')) {
-            const top = window.scrollY + wildlifeJourney.getBoundingClientRect().top;
-            window.scrollTo({ top: top + wildlifeJourney.offsetHeight - window.innerHeight, behavior: 'instant' });
+            window.scrollTo({ top: journeyEnd(), behavior: 'instant' });
         }
     });
     if (livingMode) {

@@ -24,8 +24,8 @@ class StayPageController extends Controller
             'sectionName' => 'Stay section',
             'sectionNamePlural' => 'Stay sections',
             'sectionDescription' => 'accommodation sections',
-            'titlePlaceholder' => 'e.g. A retreat for two',
-            'metaPlaceholder' => 'e.g. Couples · Private escape',
+            'titlePlaceholder' => 'e.g. Standard Tent',
+            'metaPlaceholder' => 'e.g. 40 sqm · Up to 3 adults',
         ]);
     }
 

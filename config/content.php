@@ -55,25 +55,19 @@ return json_decode(<<<'CONTENT'
         "stay": {
             "title": "Stay close to the wild.",
             "kicker": "STAY / ACCOMMODATION",
-            "intro": "Slow mornings. Quiet evenings. A thoughtful base for your Wilpattu escape. Speak with our team to find the right accommodation for your dates.",
+            "intro": "Tented stays between the Indian Ocean and the lagoon at Dolphin Beach Resort, Kalpitiya. Choose a Standard or Family Tent as your base for a Wilpattu safari.",
             "image": 13,
             "items": [
                 {
-                    "title": "A retreat for two",
-                    "text": "Plan a quiet escape with time for wildlife drives and unhurried meals. Request current room photography, amenities and available room types.",
-                    "meta": "Couples · Availability on request",
+                    "title": "Standard Tent",
+                    "text": "A coastal tent with a king bed and a sofa bed, a private courtyard and verandah, air conditioning, indoor and outdoor showers, hot water and Starlink Wi-Fi.",
+                    "meta": "40 sqm · Up to 3 adults · 3 tents",
                     "image": 13
                 },
                 {
-                    "title": "Space for your family",
-                    "text": "Let us know the ages of your children and preferred sleeping arrangements so we can recommend a suitable stay.",
-                    "meta": "Families · Occupancy confirmed by reservations",
-                    "image": 13
-                },
-                {
-                    "title": "Your stay, your way",
-                    "text": "For groups and longer stays, ask about room combinations, meal arrangements and private safari options.",
-                    "meta": "Groups · Tailored quotation",
+                    "title": "Family Tent",
+                    "text": "Generous space for families, with a king bed and two single beds or two king beds, plus two sofa beds, a private courtyard and verandah, and indoor and outdoor showers.",
+                    "meta": "60 sqm · Up to 6 adults · 6 tents",
                     "image": 13
                 }
             ]
@@ -157,31 +151,85 @@ return json_decode(<<<'CONTENT'
         "experiences": {
             "title": "Stay a little longer.",
             "kicker": "BEYOND THE SAFARI",
-            "intro": "Make room for the quieter discoveries. Tell us what you love and we will help you explore the possibilities around your stay.",
+            "intro": "From a Wilpattu safari to days on Kalpitiya's coast, lagoon and reef, our team at Dolphin Beach Resort arranges every experience for you.",
             "image": 13,
             "items": [
                 {
-                    "title": "Birdwatching",
-                    "text": "Take time with binoculars, a field guide and an experienced local guide. Ask about suitable routes and seasonal opportunities.",
-                    "meta": "By arrangement",
-                    "image": 7
+                    "title": "Yoga",
+                    "text": "Make time to breathe and move with group or private yoga sessions.",
+                    "meta": "Activity",
+                    "image": 13
                 },
                 {
-                    "title": "Photography",
-                    "text": "Practise patient observation and capture the changing light from approved viewing areas.",
-                    "meta": "Guided options",
-                    "image": 6
+                    "title": "Wilpattu National Park",
+                    "text": "Explore Wilpattu's forests and lakes, watching for wildlife along the way.",
+                    "meta": "Excursion",
+                    "image": 13
                 },
                 {
-                    "title": "Culture & heritage",
-                    "text": "Combine your nature escape with a visit to Anuradhapura. Confirm transport, visiting hours and guide arrangements before departure.",
-                    "meta": "Excursion enquiry",
-                    "image": 1
+                    "title": "Snorkelling & Scuba Diving",
+                    "text": "Explore coral reefs and discover Kalpitiya's underwater life on snorkelling and diving outings.",
+                    "meta": "Activity",
+                    "image": 13
                 },
                 {
-                    "title": "Village & nature experiences",
-                    "text": "Enquire about locally guided walks, cycling and community visits outside the park. Activities depend on permissions and availability.",
-                    "meta": "By arrangement",
+                    "title": "Pelagic Birds",
+                    "text": "Boat trips to meet the seabirds of Kalpitiya's open ocean.",
+                    "meta": "Activity",
+                    "image": 13
+                },
+                {
+                    "title": "Nature Walk to See the Loris",
+                    "text": "A quiet night walk in search of the slender loris.",
+                    "meta": "Activity",
+                    "image": 13
+                },
+                {
+                    "title": "Massage Therapy Treatment",
+                    "text": "Slow down with a relaxing massage therapy treatment.",
+                    "meta": "Activity",
+                    "image": 13
+                },
+                {
+                    "title": "Lagoon & Mangrove Boat Safari",
+                    "text": "Discover Kalpitiya's lagoon by boat, passing fishing villages and looking out for wildlife.",
+                    "meta": "Excursion",
+                    "image": 13
+                },
+                {
+                    "title": "Kitesurfing",
+                    "text": "Experience kitesurfing across Kalpitiya's warm, open waters.",
+                    "meta": "Activity",
+                    "image": 13
+                },
+                {
+                    "title": "Kayaking & Stand-Up Paddleboarding",
+                    "text": "Discover another view of Kalpitiya by kayak or stand-up paddleboard.",
+                    "meta": "Activity",
+                    "image": 13
+                },
+                {
+                    "title": "Kalpitiya Dutch Fort",
+                    "text": "Explore a 17th-century Dutch fort by the lagoon.",
+                    "meta": "Excursion",
+                    "image": 13
+                },
+                {
+                    "title": "Jet Skiing",
+                    "text": "Enjoy adrenaline-filled rides across Kalpitiya's open waters.",
+                    "meta": "Activity",
+                    "image": 13
+                },
+                {
+                    "title": "Dolphin & Whale Watching",
+                    "text": "Set out in search of dolphins and whales off Kalpitiya's coast.",
+                    "meta": "Excursion",
+                    "image": 13
+                },
+                {
+                    "title": "Cycling",
+                    "text": "Cycle through local villages and discover Kalpitiya's heritage at your own pace.",
+                    "meta": "Activity",
                     "image": 13
                 }
             ]

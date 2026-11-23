@@ -26,7 +26,7 @@
         <aside class="reservation-summary"><span class="eyebrow">REVIEW YOUR BOOKING</span><h3>Dolphin Beach Resort</h3><p>{{ $search['arrival'] }} → {{ $search['departure'] }}<br>{{ $nights }} nights · {{ $search['adults'] }} adults · {{ $search['children'] }} children<br>{{ $search['nationality'] }}</p>
             @foreach($selectedRooms as $room)<div class="reservation-line"><span>{{ $room->quantity }} × {{ $room->name }}<small>LKR {{ number_format($room->nightly_rate, 2) }} / room / night</small></span><strong>LKR {{ number_format($room->subtotal / 100, 2) }}</strong></div>@endforeach
             <div class="reservation-total"><span>Total · {{ $roomCount }} rooms</span><strong>LKR {{ number_format($total / 100, 2) }}</strong></div><p class="reservation-policy">Pay at the property · No online payment required</p>
-            <button class="button gold" type="submit">Confirm booking →</button>
+            <button class="button gold" type="submit">Confirm booking</button>
             <a class="reservation-back" href="{{ route('booking.search', $search) }}">Change dates or rooms</a>
         </aside>
     </form>

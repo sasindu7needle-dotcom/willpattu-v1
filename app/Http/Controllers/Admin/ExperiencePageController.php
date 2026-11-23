@@ -24,8 +24,8 @@ class ExperiencePageController extends Controller
             'sectionName' => 'Experience',
             'sectionNamePlural' => 'Experiences',
             'sectionDescription' => 'activities and excursions',
-            'titlePlaceholder' => 'e.g. Guided birdwatching',
-            'metaPlaceholder' => 'e.g. By arrangement · Half day',
+            'titlePlaceholder' => 'e.g. Kitesurfing',
+            'metaPlaceholder' => 'e.g. Activity',
         ]);
     }
 

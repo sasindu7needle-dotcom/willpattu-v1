@@ -28,7 +28,7 @@
                 <div>
                     @forelse($rooms as $room)
                         <article class="reservation-room">
-                            <img src="{{ asset('images/page-stay-villas.webp') }}" alt="Wilpattu accommodation" loading="lazy">
+                            <img src="{{ asset('images/page-stay-tent-interior.webp') }}" alt="Tent interior at Dolphin Beach Resort" loading="lazy">
                             <div class="reservation-room-copy"><span class="eyebrow">DOLPHIN BEACH RESORT</span><h3>{{ $room->name }}</h3><p>{{ $room->description }}</p><p class="reservation-room-meta">Up to {{ $room->capacity }} guests per room · Children count toward capacity</p><span class="reservation-pill">{{ $room->available > 0 ? $room->available.' available for your dates' : 'Sold out for these dates' }}</span><p class="reservation-policy">Pay at the property · Room-only rate · Final price includes applicable room taxes</p></div>
                             <div class="reservation-room-price"><strong>LKR {{ number_format($room->nightly_rate, 2) }}</strong><small>per room / night</small><p>LKR {{ number_format($room->nightly_rate * $nights, 2) }} for {{ $nights }} nights</p>
                             <label>Number of rooms<select name="rooms[{{ $room->id }}]" data-room-quantity data-rate="{{ (int) round($room->nightly_rate * 100) }}" data-capacity="{{ $room->capacity }}" @disabled($room->available === 0)>@for($quantity = 0; $quantity <= $room->available; $quantity++)<option value="{{ $quantity }}" @selected((int) old('rooms.'.$room->id, 0) === $quantity)>{{ $quantity }}</option>@endfor</select></label></div>
@@ -38,7 +38,7 @@
                     @endforelse
                     @if($rooms->isNotEmpty() && $rooms->sum('available') === 0)<div class="reservation-empty"><h3>No rooms available for these dates</h3><p>Try different dates above, or ask our reservations team for help.</p><a class="text-link" href="{{ route('page', 'contact') }}">Contact reservations</a></div>@endif
                 </div>
-                <aside class="reservation-summary"><span class="eyebrow">YOUR SELECTION</span><h3>A stay to look forward to.</h3><p data-selection-count aria-live="polite">Choose your rooms to see the total.</p><div class="reservation-total"><span>Total for {{ $nights }} nights</span><strong data-selection-total>LKR 0.00</strong></div><p class="reservation-policy">No online payment required. Your rooms are reserved when you confirm the next step. Cancel through our reservations team before check-in.</p><button class="button gold" type="submit" @disabled($rooms->sum('available') === 0)>Continue to guest details →</button><p data-capacity-warning role="status"></p></aside>
+                <aside class="reservation-summary"><span class="eyebrow">YOUR SELECTION</span><h3>A stay to look forward to.</h3><p data-selection-count aria-live="polite">Choose your rooms to see the total.</p><div class="reservation-total"><span>Total for {{ $nights }} nights</span><strong data-selection-total>LKR 0.00</strong></div><p class="reservation-policy">No online payment required. Your rooms are reserved when you confirm the next step. Cancel through our reservations team before check-in.</p><button class="button gold" type="submit" @disabled($rooms->sum('available') === 0)>Continue to guest details</button><p data-capacity-warning role="status"></p></aside>
             </div>
         </form>
     @else

@@ -7,7 +7,7 @@
 .hero-photo{transform:scaleX(-1)}
 
 /* A scroll-driven journey from the forest into its experiences. */
-.wildlife-journey.is-animated{height:150svh;position:relative;--journey-progress:0;--portal-size:0px;--title-highlight:0%;--scene-opacity:1;--discover-opacity:0}
+.wildlife-journey.is-animated{height:calc(150svh + var(--journey-tail,0px));margin-bottom:calc(var(--journey-tail,0px) * -1);position:relative;--journey-progress:0;--portal-size:0px;--title-highlight:0%;--scene-opacity:1;--discover-opacity:0}
 .is-animated .wildlife-stage{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--forest);isolation:isolate}
 .is-animated .hero{position:absolute;inset:0;min-height:0;z-index:2;opacity:var(--scene-opacity);pointer-events:auto}
 .is-animated .hero-photo{transform-origin:center;transform:scaleX(-1) scale(var(--camera-scale,1));will-change:transform}
@@ -23,9 +23,9 @@
 .is-animated .discovery-card{height:clamp(230px,43vh,440px);opacity:var(--card-opacity,0);transform:translateY(var(--card-offset,40px));will-change:transform,opacity}
 .is-animated .discovery-card:hover{transform:translateY(-6px)}
 .is-animated .hero.is-departed{pointer-events:none}
-@media(max-width:850px){.wildlife-journey.is-animated{height:148svh}.is-animated .discover{padding:28px 24px}.is-animated .discover .section-heading{margin-bottom:22px}.is-animated .discovery-card{height:clamp(180px,29vh,280px)}.is-animated .discovery-grid{gap:12px}.is-animated .hero-photo{transform-origin:center}}
-@media(max-width:550px){.wildlife-journey.is-animated{height:145svh}.is-animated .discover{padding:24px 18px}.is-animated .discover .section-heading{margin-bottom:18px}.is-animated .discover .section-heading h2{font-size:36px}.is-animated .discovery-card{height:clamp(140px,23vh,220px)}.is-animated .discovery-grid{gap:10px}.is-animated .hero-content{padding-top:65px}.is-animated .hero-photo{transform-origin:center}}
-@media(prefers-reduced-motion:reduce){.wildlife-journey.is-animated{height:auto}.is-animated .wildlife-stage{position:static;height:auto;overflow:visible}.is-animated .hero,.is-animated .discover{position:relative;opacity:1;mask-image:none;pointer-events:auto}.is-animated .hero{min-height:625px}.is-animated .hero-photo{transform:scaleX(-1)}.is-animated .hero-content,.is-animated .hero-note,.is-animated .hero-strip,.is-animated .scroll-note,.is-animated .discovery-card{opacity:1;transform:none}.is-animated .discover h2{-webkit-text-fill-color:var(--cream)}}
+@media(max-width:850px){.wildlife-journey.is-animated{height:calc(148svh + var(--journey-tail,0px))}.is-animated .discover{padding:28px 24px}.is-animated .discover .section-heading{margin-bottom:22px}.is-animated .discovery-card{height:clamp(180px,29vh,280px)}.is-animated .discovery-grid{gap:12px}.is-animated .hero-photo{transform-origin:center}}
+@media(max-width:550px){.wildlife-journey.is-animated{height:calc(145svh + var(--journey-tail,0px))}.is-animated .discover{padding:24px 18px}.is-animated .discover .section-heading{margin-bottom:18px}.is-animated .discover .section-heading h2{font-size:36px}.is-animated .discovery-card{height:clamp(140px,23vh,220px)}.is-animated .discovery-grid{gap:10px}.is-animated .hero-content{padding-top:65px}.is-animated .hero-photo{transform-origin:center}}
+@media(prefers-reduced-motion:reduce){.wildlife-journey.is-animated{height:auto;margin-bottom:0}.is-animated .wildlife-stage{position:static;height:auto;overflow:visible}.is-animated .hero,.is-animated .discover{position:relative;opacity:1;mask-image:none;pointer-events:auto}.is-animated .hero{min-height:625px}.is-animated .hero-photo{transform:scaleX(-1)}.is-animated .hero-content,.is-animated .hero-note,.is-animated .hero-strip,.is-animated .scroll-note,.is-animated .discovery-card{opacity:1;transform:none}.is-animated .discover h2{-webkit-text-fill-color:var(--cream)}}
 
 .leopard-actor{position:absolute;left:66%;bottom:12%;width:32vw;max-width:650px;aspect-ratio:1.125;pointer-events:none;transform:translateX(-50%) translateX(var(--leopard-travel,0px)) translateY(var(--leopard-bob,0px)) scale(var(--leopard-scale,1));transform-origin:50% 23%;will-change:transform;z-index:1}
 .leopard-sprite{position:absolute;inset:0;background-image:url('../images/leopard-front-walk-atlas.png');background-size:400% 300%;background-repeat:no-repeat;filter:brightness(.83) saturate(.88)}
@@ -225,3 +225,4 @@ main#main:has(.reservation-page){background-position:center,left -85px top 60px,
 .planning .planning-copy .eyebrow,.story>div .eyebrow,.story>div .text-link{color:#5a4320}
 .planning .planning-copy p,.story>div p{color:#3f4a40}
 .planning h2 em,.story>div h2 em{color:#4f5c3a}
+.wildlife-journey.is-animated+*{position:relative;z-index:1}

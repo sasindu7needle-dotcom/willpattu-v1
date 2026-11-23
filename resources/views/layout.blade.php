@@ -10,7 +10,7 @@
 </header>
 <div class="site-menu" id="site-menu" hidden><nav aria-label="All pages">@foreach(config('content.pages') as $key=>$entry)<a href="{{ route('page',$key) }}">{{ $entry['kicker'] }}</a>@endforeach</nav></div>
 <main id="main">@yield('content')</main>
-<section class="closing"><span class="eyebrow">THE WILD IS CALLING</span><h2>Come for the safari.<br>Stay for the <em>feeling.</em></h2><a class="button gold" href="{{ route('page','contact') }}">Plan your escape <span>↗</span></a></section>
+<section class="closing"><span class="eyebrow">THE WILD IS CALLING</span><h2>Come for the safari.<br>Stay for the <em>feeling.</em></h2><a class="button gold" href="{{ route('page','contact') }}">Plan your escape</a></section>
 <footer class="resort-footer" aria-label="Site footer">
     <div class="resort-footer-main">
         <div class="resort-footer-brand">
@@ -37,8 +37,8 @@
             <a href="{{ route('page', 'gallery') }}">Gallery</a>
             <a href="{{ route('page', 'faq') }}">FAQ</a>
             <a href="{{ route('page', 'contact') }}">Contact us</a>
-            <a href="http://kitesurfing.lk" target="_blank" rel="noopener noreferrer">Kite Surfing ↗</a>
-            <a href="https://www.alankudabeachyogaretreat.com" target="_blank" rel="noopener noreferrer">Yoga ↗</a>
+            <a href="http://kitesurfing.lk" target="_blank" rel="noopener noreferrer">Kite Surfing</a>
+            <a href="https://www.alankudabeachyogaretreat.com" target="_blank" rel="noopener noreferrer">Yoga</a>
         </nav>
         <div class="resort-footer-contact">
             <address>
@@ -69,6 +69,6 @@
         <span class="resort-footer-credit">Website Designed &amp; Developed by <strong>7needle Pvt Ltd</strong></span>
     </div>
 </footer>
-@if(config('park.whatsapp'))<a class="whatsapp" href="https://wa.me/{{ preg_replace('/\D/', '', config('park.whatsapp')) }}" target="_blank" rel="noopener">Chat on WhatsApp ↗</a>@endif
+@if(config('park.whatsapp'))<a class="whatsapp" href="https://wa.me/{{ preg_replace('/\D/', '', config('park.whatsapp')) }}" target="_blank" rel="noopener">Chat on WhatsApp</a>@endif
 <dialog id="lightbox"><button class="lightbox-close" aria-label="Close image">×</button><img id="lightbox-image" alt=""><p id="lightbox-caption"></p></dialog>
 </body></html>

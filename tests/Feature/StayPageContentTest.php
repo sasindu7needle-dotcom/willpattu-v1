@@ -19,6 +19,32 @@ class StayPageContentTest extends TestCase
         $this->actingAs($user)->get('/admin/pages/stay')->assertForbidden();
     }
 
+    public function test_stay_page_lists_only_the_dolphin_beach_tent_categories(): void
+    {
+        $this->seed();
+
+        $this->get('/stay')
+            ->assertOk()
+            ->assertSee('Standard Tent')
+            ->assertSee('Family Tent')
+            ->assertSee('page-stay-standard-tent.webp')
+            ->assertSee('page-stay-family-tent.webp')
+            ->assertDontSee('A retreat for two')
+            ->assertDontSee('Your stay, your way');
+    }
+
+    public function test_experiences_page_lists_the_corporate_site_experiences(): void
+    {
+        $this->seed();
+
+        $this->get('/experiences')
+            ->assertOk()
+            ->assertSeeInOrder(['Yoga', 'Wilpattu National Park', 'Kitesurfing', 'Kalpitiya Dutch Fort', 'Dolphin &amp; Whale Watching', 'Cycling'], false)
+            ->assertSee('page-experiences-wilpattu.webp')
+            ->assertSee('page-experiences-cycling.webp')
+            ->assertDontSee('Culture &amp; heritage', false);
+    }
+
     public function test_administrator_can_update_stay_page_details(): void
     {
         $this->seed();
